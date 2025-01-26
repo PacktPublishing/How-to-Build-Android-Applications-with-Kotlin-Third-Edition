@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.loginform.MainActivity
 import com.example.loginform.ui.theme.LoginFormTheme
 
 const val USERNAME_KEY = "USERNAME_KEY"
@@ -40,24 +41,45 @@ class MainActivity : ComponentActivity() {
             LoginFormTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(Modifier.fillMaxSize().padding(innerPadding), contentAlignment = Alignment.Center) {
-                        LoginForm(
-                            username = username,
-                            password = password,
-                            onUsernameChange = { username = it },
-                            onPasswordChange = { password = it },
-                            message = message,
-                            onLoginClick = {
-                                if (username.isNotEmpty() && password.isNotEmpty()) {
-                                    val intent = Intent(this@MainActivity, LoginActivity::class.java).apply {
-                                        putExtra(USERNAME_KEY, username)
-                                        putExtra(PASSWORD_KEY, password)
+
+                        Column(
+                            modifier = Modifier.fillMaxSize().padding(16.dp),
+                            verticalArrangement = Arrangement.Top
+                        ) {
+                            TextField(
+                                value = username,
+                                onValueChange = { username = it },
+                                label = { Text("Username") },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            TextField(
+                                value = password,
+                                onValueChange = { password = it },
+                                label = { Text("Password") },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Button(
+                                onClick = {
+                                    if (username.isNotEmpty() && password.isNotEmpty()) {
+                                        val intent = Intent(this@MainActivity, LoginActivity::class.java).apply {
+                                            putExtra(USERNAME_KEY, username)
+                                            putExtra(PASSWORD_KEY, password)
+                                        }
+                                        startActivity(intent)
+                                    } else {
+                                        message = "Please fill in all fields."
                                     }
-                                    startActivity(intent)
-                                } else {
-                                    message = "Please fill in all fields."
-                                }
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text("Login")
                             }
-                        )
+
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(text = message, modifier = Modifier.padding(16.dp))
+                        }
                     }
                 }
             }
@@ -65,40 +87,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun LoginForm(
-    username: String,
-    password: String,
-    message: String,
-    onUsernameChange: (String) -> Unit,
-    onPasswordChange: (String) -> Unit,
-    onLoginClick: () -> Unit
-) {
-    Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
-        verticalArrangement = Arrangement.Top
-    ) {
-        TextField(
-            value = username,
-            onValueChange = onUsernameChange,
-            label = { Text("Username") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        TextField(
-            value = password,
-            onValueChange = onPasswordChange,
-            label = { Text("Password") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = onLoginClick,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Login")
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(text = message, modifier = Modifier.padding(16.dp))
-    }
-}
+
+
+

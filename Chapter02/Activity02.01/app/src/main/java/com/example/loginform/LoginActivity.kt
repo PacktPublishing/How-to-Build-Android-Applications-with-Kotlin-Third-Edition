@@ -21,15 +21,16 @@ class LoginActivity : ComponentActivity() {
         val username = intent.getStringExtra(USERNAME_KEY)
         val password = intent.getStringExtra(PASSWORD_KEY)
 
-        val message = if (username == "username" && password == "password") {
-            "Welcome, $username!"
-        } else {
-            "Login failed. Please try again."
-        }
 
         setContent {
             LoginFormTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    val message = if (username == "username" && password == "password") {
+                        "Welcome, $username!"
+                    } else {
+                        "Login failed. Please try again."
+                    }
+
                     Box(
                         Modifier
                             .fillMaxSize()
