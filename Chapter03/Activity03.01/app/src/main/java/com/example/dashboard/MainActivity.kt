@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,7 +16,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,15 +26,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dashboard.ui.theme.DashboardTheme
+
+
+const val TOTAL_SALES = "Total Sales"
+const val ACTIVE_USERS = "Active Users"
+const val CONVERSION_RATE = "Conversion Rate"
+const val REVENUE_GROWTH = "Revenue Growth"
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,62 +46,65 @@ class MainActivity : ComponentActivity() {
         setContent {
             DashboardTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    BusinessDashboard(modifier = Modifier.padding(innerPadding))
+
+                    var selectedItem by remember { mutableStateOf("None") }
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding),
+                        verticalArrangement = Arrangement.Top,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            "Business Dashboard",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 22.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        DashboardTile(TOTAL_SALES, selectedItem) { selectedItem = TOTAL_SALES }
+                        DashboardTile(ACTIVE_USERS, selectedItem) {
+                            selectedItem = ACTIVE_USERS
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(14.dp))
+
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        DashboardTile(CONVERSION_RATE, selectedItem) {
+                            selectedItem = CONVERSION_RATE
+                        }
+                        DashboardTile(REVENUE_GROWTH, selectedItem) {
+                            selectedItem = REVENUE_GROWTH
+                        }
+                    }
+
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = Color.LightGray,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(34.dp)
+                            .height(150.dp) // Increased height for detailed view
+                    ) {
+                        Box(contentAlignment = Alignment.Center) {
+                            DetailedStatistics(selectedItem = selectedItem)
+                        }
+                    }
                 }
-            }
-        }
-    }
-}
+                    }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun BusinessDashboard(modifier: Modifier) {
-    var selectedItem by remember { mutableStateOf("None") }
-
-    Column(
-        modifier = modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            "Business Dashboard",
-            fontWeight = FontWeight.Bold,
-            fontSize = 22.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        Row(
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            DashboardTile("Total Sales", selectedItem) { selectedItem = "Total Sales" }
-            DashboardTile("Active Users", selectedItem) { selectedItem = "Active Users" }
-        }
-
-        Spacer(modifier = Modifier.height(14.dp))
-
-        Row(
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            DashboardTile("Conversion Rate", selectedItem) { selectedItem = "Conversion Rate" }
-            DashboardTile("Revenue Growth", selectedItem) { selectedItem = "Revenue Growth" }
-        }
-
-        Surface(
-            shape = RoundedCornerShape(12.dp),
-            color = Color.LightGray,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(34.dp)
-                .height(150.dp) // Increased height for detailed view
-        ) {
-            Box(contentAlignment = Alignment.Center) {
-                DetailedStatistics(selectedItem = selectedItem)
             }
         }
     }
@@ -109,7 +113,7 @@ fun BusinessDashboard(modifier: Modifier) {
 @Composable
 fun DetailedStatistics(selectedItem: String) {
     when (selectedItem) {
-        "Total Sales" -> {
+        TOTAL_SALES -> {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -121,7 +125,7 @@ fun DetailedStatistics(selectedItem: String) {
             }
         }
 
-        "Active Users" -> {
+        ACTIVE_USERS -> {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -137,7 +141,7 @@ fun DetailedStatistics(selectedItem: String) {
             }
         }
 
-        "Conversion Rate" -> {
+        CONVERSION_RATE -> {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -153,7 +157,7 @@ fun DetailedStatistics(selectedItem: String) {
             }
         }
 
-        "Revenue Growth" -> {
+        REVENUE_GROWTH -> {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -193,11 +197,5 @@ fun DashboardTile(title: String, selectedItem: String, onClick: () -> Unit) {
             Text(text = title, fontSize = 16.sp, fontWeight = FontWeight.Bold)
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DashboardPreview() {
-    BusinessDashboard(modifier = Modifier.padding(20.dp))
 }
 

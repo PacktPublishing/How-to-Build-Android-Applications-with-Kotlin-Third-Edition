@@ -22,12 +22,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.bottomnavigation.SportsScreen
 import com.example.bottomnavigation.ui.theme.BottomNavigationTheme
 
 @Composable
-fun ContentScreen(name: String) {
+fun ContentScreen(route: String) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(name, fontSize = 28.sp)
+        Text(route, fontSize = 28.sp)
     }
 }
 
@@ -55,21 +56,21 @@ fun SportButton(route: String, navController: NavHostController) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp),
-        shape = RoundedCornerShape(12.dp), // Rounded corners with a smaller radius
+        shape = RoundedCornerShape(12.dp),
         border = ButtonDefaults.outlinedButtonBorder,
         colors = ButtonDefaults.run {
             outlinedButtonColors(
-                containerColor = Color(0xFFE0E0E0), // Light gray background
-                contentColor = Color.Black // Text color
+                containerColor = Color.LightGray,
+                contentColor = Color.Black
             )
         },
-        elevation = ButtonDefaults.buttonElevation(defaultElevation = 2.dp) // Less elevation
+        elevation = ButtonDefaults.buttonElevation(defaultElevation = 2.dp)
     ) {
         Text(
             text = route,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(vertical = 8.dp) // Less padding for a more square shape
+            modifier = Modifier.padding(vertical = 8.dp)
         )
     }
 }
