@@ -4,11 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -21,11 +23,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -54,7 +55,7 @@ class MainActivity : ComponentActivity() {
             .build()
         val downloadService = retrofit.create<DogService>(DogService::class.java)
         val database = Room.databaseBuilder(applicationContext, DogDatabase::class.java, "dog-db")
-                .build()
+            .build()
         val dogRepository = DogRepositoryImpl(
             DownloadPreferences(applicationContext),
             ProviderFileHandler(
@@ -123,7 +124,11 @@ fun DogScreen(
     onRowClicked: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier = modifier) {
+    LazyColumn(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         item {
             var textFieldText by remember {
                 mutableStateOf(dogs.size.toString())
@@ -141,11 +146,12 @@ fun DogScreen(
         }
         items(dogs.size) {
             val index = it
-            ClickableText(
-                text = AnnotatedString(text = dogs[it].url),
-                modifier = Modifier.padding(16.dp)
-            ) {
-                onRowClicked(dogs[index].url)
+            Column(modifier = Modifier
+                .padding(16.dp)
+                .clickable(onClick = {
+                    onRowClicked(dogs[index].url)
+                })) {
+                Text(text = dogs[it].url)
             }
         }
 
