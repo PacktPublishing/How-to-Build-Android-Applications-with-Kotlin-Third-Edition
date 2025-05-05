@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Activity Callbacks"
 include(":app")
- 
