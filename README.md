@@ -45,7 +45,7 @@ With the following software and hardware list you can run all code files present
 
 | Chapter  | Software required                   | OS required                        |
 | -------- | ------------------------------------| -----------------------------------|
-| 1-16        | Android Studio Ladybug or later versions                     | Windows, macOS, or Linux |
+| 1-16        | Android Studio Meerkat or later versions                     | Windows, macOS, or Linux |
 
 
 ### Related products
