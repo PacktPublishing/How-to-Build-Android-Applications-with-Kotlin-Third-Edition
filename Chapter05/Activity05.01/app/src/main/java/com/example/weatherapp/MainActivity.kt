@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.catagentprofile.LoadedImage
 import com.example.weatherapp.model.ServerResponseData
 import com.example.weatherapp.model.WeatherData
 import com.example.weatherapp.ui.theme.WeatherAppTheme
