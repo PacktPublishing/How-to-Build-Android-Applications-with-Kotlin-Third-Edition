@@ -36,7 +36,6 @@ import com.example.myrecipes.ui.theme.MyRecipesTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val t = shouldShowRequestPermissionRationale("")
         enableEdgeToEdge()
         setContent {
             MyRecipesTheme {
