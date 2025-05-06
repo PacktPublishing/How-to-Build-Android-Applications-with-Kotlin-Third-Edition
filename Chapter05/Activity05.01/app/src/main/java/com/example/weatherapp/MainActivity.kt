@@ -38,6 +38,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 
+private const val OPEN_WEATHER_TOKEN = "[ENTER TOKEN HERE]"
+private const val LATITUDE = "51.6201654"
+private const val LONGITUDE = "0.3018662"
+
 class MainActivity : ComponentActivity() {
     private val client = HttpClient(CIO) {
         install(ContentNegotiation) {
@@ -64,15 +68,11 @@ class MainActivity : ComponentActivity() {
                     weather = try {
                         val response = weather()
                         val weather = response.weather.firstOrNull()
-                        if (weather == null) {
-                            WeatherData(
-                                shortDescription = "No weather returned.",
-                                longDescription = "",
-                                iconId = ""
-                            )
-                        } else {
-                            weather
-                        }
+                        weather ?: WeatherData(
+                            shortDescription = "No weather returned.",
+                            longDescription = "",
+                            iconId = ""
+                        )
                     } catch (exception: Exception) {
                         WeatherData(
                             shortDescription = "Something went wrong",
@@ -115,9 +115,9 @@ class MainActivity : ComponentActivity() {
         "https://api.openweathermap.org/data/2.5/weather"
     ) {
         url {
-            parameter("appid", "[ENTER TOKEN HERE]")
-            parameter("lat", "51.6201654")
-            parameter("lon", "0.3018662")
+            parameter("appid", OPEN_WEATHER_TOKEN)
+            parameter("lat", LATITUDE)
+            parameter("lon", LONGITUDE)
         }
     }.body()
 }

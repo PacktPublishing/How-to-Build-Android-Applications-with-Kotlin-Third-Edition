@@ -23,7 +23,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,7 +31,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.lifecycle.lifecycleScope
@@ -234,7 +232,7 @@ class MainActivity : ComponentActivity() {
             vectorDrawable.intrinsicWidth,
             vectorDrawable.intrinsicHeight
         )
-        val drawableWithTint = DrawableCompat. wrap(vectorDrawable)
+        val drawableWithTint = DrawableCompat.wrap(vectorDrawable)
         DrawableCompat.setTint(drawableWithTint, Color.DKGRAY)
         val bitmap = Bitmap.createBitmap(
             vectorDrawable.intrinsicWidth,
@@ -245,21 +243,5 @@ class MainActivity : ComponentActivity() {
         drawableWithTint.draw(canvas)
         BitmapDescriptorFactory.fromBitmap(bitmap)
             .also { bitmap.recycle() }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CatAgentDeployerTheme {
-        Greeting("Android")
     }
 }
