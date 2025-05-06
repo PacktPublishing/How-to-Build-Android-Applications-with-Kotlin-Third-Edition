@@ -1,6 +1,5 @@
 package com.example.myrecipes
 
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.AnchoredDraggableState
@@ -17,7 +16,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
@@ -32,19 +30,12 @@ fun Recipe(
     onClick: () -> Unit = {},
     onSwipe: () -> Unit = {}
 ) {
-    val density = LocalDensity.current
-
     val dragState = remember {
-        AnchoredDraggableState(
-            initialValue = DragAnchors.START,
-            positionalThreshold = { distance: Float -> distance * 0.5f },
-            velocityThreshold = { with(density) { 100.dp.toPx() } },
-            animationSpec = tween()
-        )
+        AnchoredDraggableState(initialValue = DragAnchors.START)
     }
 
-    LaunchedEffect(dragState.currentValue) {
-        if (dragState.currentValue == DragAnchors.END) {
+    LaunchedEffect(dragState.settledValue) {
+        if (dragState.settledValue == DragAnchors.END) {
             onSwipe()
         }
     }
