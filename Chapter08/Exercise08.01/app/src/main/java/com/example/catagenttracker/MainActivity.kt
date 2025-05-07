@@ -1,7 +1,6 @@
 package com.example.catagenttracker
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.activity.ComponentActivity
@@ -16,8 +15,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.work.Constraints
-import androidx.work.Data
-import androidx.work.ListenableWorker
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
@@ -126,7 +123,7 @@ class MainActivity : ComponentActivity() {
     ) {
         workManager.getWorkInfoByIdFlow(requestId)
             .collect { info ->
-                if (info.state.isFinished) {
+                if (info?.state?.isFinished == true) {
                     showResult(message)
                 }
             }
