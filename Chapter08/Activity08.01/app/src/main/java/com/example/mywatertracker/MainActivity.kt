@@ -80,13 +80,17 @@ class MainActivity : ComponentActivity() {
             suspend fun collectWorkInfo(requestId: UUID) {
                 workManager.getWorkInfoByIdFlow(requestId)
                     .collect { info ->
-                        if (info.state == WorkInfo.State.CANCELLED) {
-                            Toast.makeText(
-                                this, "Monitoring stopped.", LENGTH_SHORT
-                            ).show()
-                        } else if (info.progress != Data.EMPTY) {
-                            waterBalance =
-                                info.progress.getFloat(DATA_KEY_WATER_BALANCE, waterBalance)
+                        when {
+                            info == null -> return@collect
+                            info.state == WorkInfo.State.CANCELLED -> {
+                                Toast.makeText(
+                                    this, "Monitoring stopped.", LENGTH_SHORT
+                                ).show()
+                            }
+                            info.progress != Data.EMPTY -> {
+                                waterBalance =
+                                    info.progress.getFloat(DATA_KEY_WATER_BALANCE, waterBalance)
+                            }
                         }
                     }
             }
