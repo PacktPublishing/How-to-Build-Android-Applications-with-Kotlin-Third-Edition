@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Intents Introduction"
 include(":app")
+ 
