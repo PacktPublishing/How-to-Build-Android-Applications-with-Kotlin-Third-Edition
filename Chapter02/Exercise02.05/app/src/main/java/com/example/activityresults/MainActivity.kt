@@ -34,13 +34,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.activityresults.ui.theme.ActivityResultsTheme
 
-const val RAINBOW_COLOR_NAME = "RAINBOW_COLOR_NAME" // Key to return rainbow color name in intent
-const val RAINBOW_COLOR = "RAINBOW_COLOR" // Key to return rainbow color in intent
-const val TRANSPARENT = 0x00FFFFFFL // Default color of transparent
-
 class MainActivity : ComponentActivity() {
 
-    private var rainbowColor by mutableStateOf(Color(TRANSPARENT))
+    private var rainbowColor by
+    mutableStateOf(Color(TRANSPARENT))
     private var colorName by mutableStateOf("")
     private var colorMessage by mutableStateOf("")
 
@@ -50,9 +47,17 @@ class MainActivity : ComponentActivity() {
         ) { activityResult ->
             val data = activityResult.data
 
-            rainbowColor = Color(data?.getLongExtra(RAINBOW_COLOR, TRANSPARENT) ?: TRANSPARENT)
-            colorName = data?.getStringExtra(RAINBOW_COLOR_NAME) ?: ""
-            colorMessage = getString(R.string.color_chosen_message, colorName)
+            rainbowColor = Color(
+                data?.getLongExtra(
+                    RAINBOW_COLOR,
+                    TRANSPARENT
+                ) ?: TRANSPARENT)
+            colorName =
+                data?.getStringExtra(RAINBOW_COLOR_NAME) ?: ""
+            colorMessage = getString(
+                R.string.color_chosen_message,
+                colorName
+            )
             data?.getStringExtra(RAINBOW_COLOR_NAME) ?: ""
         }
 
@@ -62,74 +67,103 @@ class MainActivity : ComponentActivity() {
         setContent {
             val context = LocalContext.current
             ActivityResultsTheme {
-                MainScreen(rainbowColor, colorMessage, context, startForResult)
-            }
-        }
-    }
-
-
-    @Composable
-    private fun MainScreen(
-        backgroundColor: Color,
-        colorMessage: String,
-        context: Context,
-        startForResult: ActivityResultLauncher<Intent>
-    ) {
-        Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            Column(
-                verticalArrangement = Arrangement.Top,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-            ) {
-                Text(
-                    stringResource(id = R.string.header_text_main),
-                    fontSize = 18.sp,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(16.dp)
+                MainScreen(
+                    rainbowColor,
+                    colorMessage,
+                    context,
+                    startForResult
                 )
-                Button(
-                    onClick = {
-                        val intent = Intent(context, ColorPickerActivity::class.java)
-                        startForResult.launch(intent)
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(20.dp)
-                ) {
-                    Text(text = stringResource(id = R.string.submit_button_text))
-                }
-                TextWithBackgroundColor(backgroundColor, colorMessage)
             }
         }
     }
 
-    @Composable
-    private fun TextWithBackgroundColor(backgroundColor: Color, colorMessage: String) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
+
+
+    companion object {
+        const val RAINBOW_COLOR_NAME = "RAINBOW_COLOR_NAME"
+        const val RAINBOW_COLOR = "RAINBOW_COLOR"
+        const val TRANSPARENT = 0x00FFFFFFL
+    }
+
+
+}
+
+@Composable
+fun TextWithBackgroundColor(backgroundColor: Color, colorMessage: String) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
+            .height(50.dp)
+            .background(backgroundColor)
+            .fillMaxWidth()
+    ) {
+        Text(
+            text = colorMessage,
+            fontSize = 22.sp,
+            color = Color.White,
+            textAlign = TextAlign.Center,
             modifier = Modifier
-                .padding(horizontal = 20.dp)
-                .height(50.dp)
                 .background(backgroundColor)
                 .fillMaxWidth()
+        )
+    }
+}
+
+@Preview
+@Composable
+fun TextWithBackgroundColorPreview() {
+    TextWithBackgroundColor(Color(0xFF00FF00), "Chosen color appears here")
+}
+
+@Composable
+fun MainScreen(
+    backgroundColor: Color,
+    colorMessage: String,
+    context: Context,
+    startForResult: ActivityResultLauncher<Intent>
+) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize()
+    ) { innerPadding ->
+        Column(
+            verticalArrangement = Arrangement.Top,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
         ) {
             Text(
-                text = colorMessage,
-                fontSize = 22.sp,
-                color = Color.White,
+                stringResource(
+                    id = R.string.header_text_main
+                ),
+                fontSize = 18.sp,
                 textAlign = TextAlign.Center,
+                modifier = Modifier.padding(16.dp)
+            )
+            Button(
+                onClick = {
+                    val intent = Intent(
+                        context,
+                        ColorPickerActivity::class.java
+                    )
+                    startForResult.launch(intent)
+                },
                 modifier = Modifier
-                    .background(backgroundColor)
                     .fillMaxWidth()
+                    .padding(20.dp)
+            ) {
+                Text(
+                    text = stringResource(
+                        id =
+                            R.string.submit_button_text
+                    )
+                )
+            }
+            TextWithBackgroundColor(
+                backgroundColor, colorMessage
             )
         }
     }
-
-    @Preview
-    @Composable
-    fun TextWithBackgroundColorPreview() {
-        TextWithBackgroundColor(Color(0xFF00FF00), "Chosen color appears here")
-    }
 }
+
 
