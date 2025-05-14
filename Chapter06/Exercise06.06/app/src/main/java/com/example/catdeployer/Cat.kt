@@ -1,6 +1,5 @@
 package com.example.catdeployer
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.AnchoredDraggableState
 import androidx.compose.foundation.gestures.DraggableAnchors
@@ -25,7 +24,6 @@ import com.example.catdeployer.model.CatUiModel
 import com.example.catdeployer.model.Gender
 import kotlin.math.roundToInt
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Cat(cat: CatUiModel, onClick: () -> Unit = {}, onSwipe: () -> Unit = {}) {
     val dragState = remember {

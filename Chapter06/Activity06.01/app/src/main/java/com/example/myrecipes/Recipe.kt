@@ -1,6 +1,5 @@
 package com.example.myrecipes
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.AnchoredDraggableState
 import androidx.compose.foundation.gestures.DraggableAnchors
@@ -23,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.example.myrecipes.model.RecipeUiModel
 import kotlin.math.roundToInt
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Recipe(
     recipe: RecipeUiModel,
