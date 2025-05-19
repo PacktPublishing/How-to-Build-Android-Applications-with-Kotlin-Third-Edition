@@ -48,27 +48,26 @@ private fun WelcomeScreen(intent: Intent) {
                 .padding(innerPadding)
                 .fillMaxSize()
         ) {
-            if (intent != null) {
-                val fullName =
-                    intent.getStringExtra(
-                        FULL_NAME_KEY
-                    ) ?: ""
-                val welcomeText =
-                    stringResource(
-                        R.string.welcome_text,
-                        fullName
-                    )
-                Text(
-                    textAlign = TextAlign.Center,
-                    text = welcomeText,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(12.dp)
+            val fullName =
+                intent.getStringExtra(
+                    FULL_NAME_KEY
+                ) ?: ""
+            val welcomeText =
+                stringResource(
+                    R.string.welcome_text,
+                    fullName
                 )
-            }
+            Text(
+                textAlign = TextAlign.Center,
+                text = welcomeText,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(12.dp)
+            )
         }
     }
 }
+
 
 
 @Composable

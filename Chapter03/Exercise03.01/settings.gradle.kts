@@ -19,6 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Counter Views Activity"
+rootProject.name = "Counter Views"
 include(":app")
- 

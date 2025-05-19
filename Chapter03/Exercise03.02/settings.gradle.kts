@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Counter Compose Activity"
+rootProject.name = "Counter Compose"
 include(":app")
  

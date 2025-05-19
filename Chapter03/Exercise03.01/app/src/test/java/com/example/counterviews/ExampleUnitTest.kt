@@ -1,4 +1,4 @@
-package com.example.counterviewsactivity
+package com.example.counterviews
 
 import org.junit.Test
 
