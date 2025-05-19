@@ -77,8 +77,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-
-
     companion object {
         const val RAINBOW_COLOR_NAME = "RAINBOW_COLOR_NAME"
         const val RAINBOW_COLOR = "RAINBOW_COLOR"

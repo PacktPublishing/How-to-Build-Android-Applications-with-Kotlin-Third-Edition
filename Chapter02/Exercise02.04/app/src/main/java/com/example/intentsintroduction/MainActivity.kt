@@ -3,6 +3,7 @@ package com.example.intentsintroduction
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -81,14 +82,18 @@ private fun MainScreen() {
                     .fillMaxWidth()
             )
             Button(
-                onClick = {
-                    welcomeIntent.putExtra(
-                        FULL_NAME_KEY, fullName
-                    )
-                    context.startActivity(
-                        welcomeIntent
-                    )
-                },
+                onClick = ({
+                    if (fullName.isNotEmpty()) {
+                        welcomeIntent.putExtra(FULL_NAME_KEY, fullName)
+                        context.startActivity(welcomeIntent)
+                    } else {
+                        Toast.makeText(
+                            context, context.getString(R.string.full_name_label),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }),
+
                 modifier = Modifier
                     .fillMaxWidth()
             ) {

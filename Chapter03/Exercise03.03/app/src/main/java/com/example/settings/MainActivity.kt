@@ -19,8 +19,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Switch
@@ -47,7 +45,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             SettingsTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    SettingsContainer(modifier = Modifier.padding(innerPadding))
+                    SettingsContainer(
+                        modifier = Modifier.padding(innerPadding)
+                    )
+
                 }
             }
         }
@@ -58,30 +59,25 @@ class MainActivity : ComponentActivity() {
 fun SettingsContainer(modifier: Modifier = Modifier) {
     Column(
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment =
+            Alignment.CenterHorizontally,
         modifier = modifier
     ) {
+
         // Header
         SettingsHeader()
-        // Image
-        SettingsImage()
-        // Consent cookies
-        SettingsCheckbox()
-        // Stream over wifi
-        SettingsSwitch()
-        // App Brightness
-        SettingsSlider()
-        // Radio Buttons
-        SettingsRadioButton()
-        // Sign Out Button
-        AlertDialog()
-    }
-}
 
-@Preview
-@Composable
-fun SettingsContainerPreview() {
-    SettingsContainer()
+        SettingsImage()
+
+        SettingsCheckbox()
+
+        SettingsSwitch()
+
+        SettingsSlider()
+
+        SettingsAlertDialog()
+
+    }
 }
 
 @Composable
@@ -94,13 +90,16 @@ fun SettingsHeader() {
         horizontalArrangement = Arrangement.Center
     ) {
         Text(
-            text = stringResource(id = R.string.app_name),
+            text = stringResource(
+                id = R.string.app_name),
             style = HeaderTextStyle,
             modifier = Modifier.padding(end = 10.dp)
         )
         Icon(
             imageVector = Icons.Default.Settings,
-            contentDescription = stringResource(id = R.string.settings_icon_description),
+            contentDescription = stringResource(
+                id = R.string.settings_icon_description
+            ),
         )
     }
 }
@@ -110,21 +109,29 @@ fun SettingsImage() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp).padding(start = 16.dp),
+            .padding(vertical = 8.dp)
+            .padding(start = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement =
+            Arrangement.SpaceBetween
     ) {
         Text(
-            text = stringResource(id = R.string.settings_profile_image),
+            text = stringResource(
+                id = R.string.settings_profile_image),
             fontSize = 18.sp,
         )
         Image(
-            modifier = Modifier.padding(end = 10.dp).height(34.dp)
-                .clickable { /* Handle changing the profile image */ },
-            painter = painterResource(id = R.drawable.sunflower),
-            contentDescription = stringResource(id = R.string.settings_profile_image),
+            modifier = Modifier.padding(
+                end = 10.dp).height(34.dp)
+                .clickable {
+                    /* Handle changing the profile image */
+                },
+            painter = painterResource(
+                id = R.drawable.sunflower),
+            contentDescription = stringResource(
+                id = R.string.settings_profile_image),
 
-        )
+            )
     }
 }
 
@@ -135,12 +142,15 @@ fun SettingsCheckbox() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp).padding(start = 16.dp),
+            .padding(vertical = 8.dp)
+            .padding(start = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement =
+            Arrangement.SpaceBetween
     ) {
         Text(
-            text = stringResource(id = R.string.settings_consent),
+            text = stringResource(
+                id = R.string.settings_consent),
             fontSize = 18.sp,
         )
         Checkbox(
@@ -157,12 +167,15 @@ fun SettingsSwitch() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp).padding(start = 16.dp),
+            .padding(vertical = 8.dp)
+            .padding(start = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement =
+            Arrangement.SpaceBetween
     ) {
         Text(
-            text = stringResource(id = R.string.settings_mobile_data),
+            text = stringResource(
+                id = R.string.settings_mobile_data),
             fontSize = 18.sp,
         )
         Switch(
@@ -180,13 +193,16 @@ fun SettingsSlider() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp).padding(start = 16.dp),
+            .padding(vertical = 8.dp)
+            .padding(start = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement =
+            Arrangement.SpaceBetween
     ) {
         Text(
             modifier = Modifier.padding(end = 16.dp),
-            text = stringResource(id = R.string.settings_text_size),
+            text = stringResource(
+                id = R.string.settings_text_size),
             fontSize = 18.sp,
         )
         Slider(
@@ -198,52 +214,44 @@ fun SettingsSlider() {
 }
 
 @Composable
-fun AlertDialog() {
+fun SettingsAlertDialog() {
     var showDialog by remember { mutableStateOf(false) }
 
     Button(onClick = { showDialog = true }) {
-        Text(text = stringResource(id = R.string.sign_out))
+        Text(text = stringResource(
+            id = R.string.sign_out))
     }
 
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
-            title = { Text(text = stringResource(id = R.string.alert_title)) },
-            text = { Text(text = stringResource(id = R.string.alert_message)) },
+            title = { Text(text = stringResource(
+                id = R.string.alert_title)) },
+            text = { Text(text = stringResource(
+                id = R.string.alert_message)) },
             confirmButton = {
                 Button(onClick = { showDialog = false }) {
-                    Text(text = stringResource(id = R.string.ok))
+                    Text(text = stringResource(
+                        id = R.string.ok))
                 }
             },
             dismissButton = {
                 Button(onClick = { showDialog = false }) {
-                    Text(text = stringResource(id = R.string.cancel))
+                    Text(text = stringResource(
+                        id = R.string.cancel))
                 }
             }
         )
     }
 }
 
-@Composable
-fun SettingsRadioButton() {
-    var selectedColor by remember { mutableStateOf("Red") }
 
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .padding(16.dp)) {
-        Text(text = stringResource(id = R.string.payment_method), modifier = Modifier.padding(bottom = 8.dp))
-        listOf("Paypal", "Credit Card", "Bak Transfer").forEach { color ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(vertical = 4.dp)
-            ) {
-                RadioButton(
-                    selected = (color == selectedColor),
-                    onClick = { selectedColor = color },
-                    colors = RadioButtonDefaults.colors()
-                )
-                Text(text = color, modifier = Modifier.padding(start = 8.dp))
-            }
-        }
-    }
+
+
+
+@Preview
+@Composable
+fun SettingsContainerPreview() {
+    SettingsContainer()
 }
+
