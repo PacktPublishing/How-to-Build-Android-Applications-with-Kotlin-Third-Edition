@@ -9,9 +9,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class TVShow(
     @SerialName("backdrop_path")
-    val backdropPath: String = "",
+    val backdropPath: String? = "",
     @SerialName("first_air_date")
-    val firstAirDate: String = "",
+    val firstAirDate: String? = "",
     @PrimaryKey val id: Int = 0,
     val name: String = "",
     @SerialName("original_language")
