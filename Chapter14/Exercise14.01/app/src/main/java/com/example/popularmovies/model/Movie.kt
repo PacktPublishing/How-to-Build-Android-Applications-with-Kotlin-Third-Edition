@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 data class Movie(
     val adult: Boolean = false,
     @SerialName("backdrop_path")
-    val backdropPath: String = "",
+    val backdropPath: String? = "",
     @PrimaryKey val id: Int = 0,
     @SerialName("original_language")
     val originalLanguage: String = "",
