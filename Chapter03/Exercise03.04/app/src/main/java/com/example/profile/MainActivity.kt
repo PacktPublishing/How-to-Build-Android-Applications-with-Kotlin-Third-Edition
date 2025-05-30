@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -39,20 +38,27 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.profile.ui.theme.ProfileTheme
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             ProfileTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Profile(modifier = Modifier.padding(innerPadding))
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
+                    Profile(
+                        modifier = Modifier
+                            .padding(innerPadding)
+                    )
                 }
             }
         }
+
     }
 }
+
 
 @Composable
 fun Profile(modifier: Modifier) {
@@ -64,15 +70,19 @@ fun Profile(modifier: Modifier) {
         shadowElevation = 8.dp,
         color = Color.White
     ) {
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth()
         ) {
-            Box (modifier = Modifier.size(110.dp)) {
+
+            Box (modifier = Modifier.size(116.dp)) {
+
                 Image(
-                    painter = painterResource(id = R.drawable.cat), // Replace with your image resource
+                    // Replace with your image resource
+                    painter = painterResource(id = R.drawable.cat),
                     contentDescription = "Profile Picture",
                     contentScale = ContentScale.Inside,
                     modifier = Modifier
@@ -80,33 +90,35 @@ fun Profile(modifier: Modifier) {
                         .size(100.dp)
                         .clip(RoundedCornerShape(50.dp))
                 )
-                    Card(
-                        onClick = {/**/},
-                        modifier = Modifier.align(BottomEnd), border = BorderStroke(1.dp, SolidColor(Color.Blue))) {
-                        Text(text = "Edit", modifier = Modifier.padding(horizontal = 4.dp),
-                            fontSize = 12.sp)
 
-                    }
+                Card(
+                    onClick = {/**/},
+                    modifier = Modifier.align(BottomEnd),
+                    border = BorderStroke(
+                        1.dp, SolidColor(Color.Blue))
+                ) {
+                    Text(
+                        text = "Edit",
+                        modifier = Modifier.padding(horizontal = 4.dp),
+                        fontSize = 12.sp)
+
+                }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
-
             Text(
                 text = "Jane Doe",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 16.dp)
             )
-
             Text(
                 text = "Mobile Developer | Tech Enthusiast",
                 fontSize = 16.sp,
                 color = Color.Gray,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(vertical = 16.dp)
             )
-
-            Spacer(modifier = Modifier.height(16.dp))
 
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
@@ -119,8 +131,18 @@ fun Profile(modifier: Modifier) {
                     Text(text = "Message")
                 }
             }
+
+
+
+
+
         }
+
+
+
     }
+
+
 }
 
 @Preview(showBackground = true)
@@ -128,6 +150,7 @@ fun Profile(modifier: Modifier) {
 fun ProfilePreview() {
     Profile(modifier = Modifier.padding(20.dp))
 }
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
