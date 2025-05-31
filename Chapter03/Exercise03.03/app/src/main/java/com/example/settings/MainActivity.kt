@@ -245,10 +245,6 @@ fun SettingsAlertDialog() {
     }
 }
 
-
-
-
-
 @Preview
 @Composable
 fun SettingsContainerPreview() {
