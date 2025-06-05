@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.scaffoldslots
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -20,14 +20,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.example.scaffoldslots.ui.theme.ScaffoldSlotsTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MyApplicationTheme {
+            ScaffoldSlotsTheme {
                 MyScaffoldApp()
             }
         }
@@ -87,10 +87,19 @@ fun MyScaffoldApp() {
     )
 }
 
+
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
-fun MyScaffoldAppPreview() {
-    MyApplicationTheme {
-        MyScaffoldApp()
+fun GreetingPreview() {
+    ScaffoldSlotsTheme {
+        Greeting("Android")
     }
 }

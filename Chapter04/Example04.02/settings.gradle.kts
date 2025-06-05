@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Nav Graph"
+rootProject.name = "Navigation Graph"
 include(":app")
  

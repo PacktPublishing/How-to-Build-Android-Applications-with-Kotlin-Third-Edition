@@ -1,4 +1,4 @@
-package com.example.navgraph.ui.theme
+package com.example.scaffoldslots.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

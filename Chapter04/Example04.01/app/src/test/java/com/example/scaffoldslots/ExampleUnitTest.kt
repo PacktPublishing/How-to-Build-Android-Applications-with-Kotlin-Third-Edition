@@ -1,4 +1,4 @@
-package com.example.navgraph
+package com.example.scaffoldslots
 
 import org.junit.Test
 
