@@ -1,5 +1,6 @@
 package com.example.simplenavigation
 
+import android.R.attr.text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -27,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.toColorInt
 import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,56 +46,56 @@ fun HomeScreen(navController: NavController) {
         ) {
             Box(
                 modifier = Modifier
-                    .size(150.dp) // Increased size of the boxes
+                    .size(150.dp)
                     .border(4.dp, Color.Red, shape = RoundedCornerShape(16.dp))
-                    .clickable { navController.navigate(Routes.Red.route) }
+                    .clickable { navController.navigate(ColorRoute("RED", "#FF0000")) }
                     .padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text("RED", color = Color.Red, fontSize = 24.sp)
+                Text("RED", color = Color.Red, fontSize = 28.sp)
             }
 
             Spacer(modifier = Modifier.height(24.dp))
 
             Box(
                 modifier = Modifier
-                    .size(150.dp) // Increased size of the boxes
+                    .size(150.dp)
                     .border(4.dp, Color.Green, shape = RoundedCornerShape(16.dp))
-                    .clickable { navController.navigate(Routes.Green.route) }
+                    .clickable { navController.navigate(ColorRoute("GREEN", "#00FF00")) }
                     .padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text("GREEN", color = Color.Green, fontSize = 24.sp)
+                Text("GREEN", color = Color.Green, fontSize = 28.sp)
             }
 
             Spacer(modifier = Modifier.height(24.dp))
 
             Box(
                 modifier = Modifier
-                    .size(150.dp) // Increased size of the boxes
+                    .size(150.dp)
                     .border(4.dp, Color.Blue, shape = RoundedCornerShape(16.dp))
-                    .clickable { navController.navigate(Routes.Blue.route) }
+                    .clickable { navController.navigate(ColorRoute("BLUE", "#FF0000")) }
                     .padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text("BLUE", color = Color.Blue, fontSize = 24.sp) // Large font size
+                Text("BLUE", color = Color.Blue, fontSize = 28.sp)
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalStdlibApi::class)
 @Composable
-fun ColorScreen(navController: NavController, title: String, color: Color) {
+fun ColorScreen(navigate: () -> Unit, colorName: String, colorHexidecimal: String) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 modifier = Modifier.fillMaxWidth(),
                 title = {
-                        Text(title)
+                    Text(colorName)
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
+                    IconButton(onClick = {navigate()}) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }
@@ -104,10 +106,10 @@ fun ColorScreen(navController: NavController, title: String, color: Color) {
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
-                .background(color),
+                .background(Color(colorHexidecimal.toColorInt())),
             contentAlignment = Alignment.Center
         ) {
-            Text(text = "$title Screen", color = color)
+            Text(text = "$colorName SCREEN", fontSize = 28.sp)
         }
     }
 }
