@@ -41,7 +41,7 @@ fun HomeScreen(navController: NavController) {
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(
@@ -55,8 +55,6 @@ fun HomeScreen(navController: NavController) {
                 Text("RED", color = Color.Red, fontSize = 28.sp)
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
-
             Box(
                 modifier = Modifier
                     .size(150.dp)
@@ -68,13 +66,11 @@ fun HomeScreen(navController: NavController) {
                 Text("GREEN", color = Color.Green, fontSize = 28.sp)
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
-
             Box(
                 modifier = Modifier
                     .size(150.dp)
                     .border(4.dp, Color.Blue, shape = RoundedCornerShape(16.dp))
-                    .clickable { navController.navigate(ColorRoute("BLUE", "#FF0000")) }
+                    .clickable { navController.navigate(ColorRoute("BLUE", "#0000FF")) }
                     .padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
@@ -84,7 +80,7 @@ fun HomeScreen(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalStdlibApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ColorScreen(navigate: () -> Unit, colorName: String, colorHexidecimal: String) {
     Scaffold(
