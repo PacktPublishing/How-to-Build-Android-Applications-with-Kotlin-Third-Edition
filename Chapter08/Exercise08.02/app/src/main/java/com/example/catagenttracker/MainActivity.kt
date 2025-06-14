@@ -19,9 +19,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -98,20 +98,25 @@ class MainActivity : ComponentActivity() {
     ) {
         workManager.getWorkInfoByIdFlow(requestId)
             .collect { info ->
-                if (info.state.isFinished) {
-                    Toast.makeText(
-                        this, "Agent arrived!", LENGTH_SHORT
-                    ).show()
-                } else if (info.progress != Data.EMPTY) {
-                    val catAgentId = info.progress
-                        .getString(DATA_KEY_CAT_AGENT_ID)
-                    val timeSeconds = info.progress
-                        .getInt(DATA_KEY_SECONDS_LEFT, 0)
-                    Toast.makeText(
-                        this,
-                        "$catAgentId arrives in $timeSeconds seconds",
-                        LENGTH_SHORT
-                    ).show()
+                when {
+                    info == null -> return@collect
+                    info.state.isFinished -> {
+                        Toast.makeText(
+                            this, "Agent arrived!", LENGTH_SHORT
+                        ).show()
+                    }
+
+                    info.progress != Data.EMPTY -> {
+                        val catAgentId = info.progress
+                            .getString(DATA_KEY_CAT_AGENT_ID)
+                        val timeSeconds = info.progress
+                            .getInt(DATA_KEY_SECONDS_LEFT, 0)
+                        Toast.makeText(
+                            this,
+                            "$catAgentId arrives in $timeSeconds seconds",
+                            LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
     }
