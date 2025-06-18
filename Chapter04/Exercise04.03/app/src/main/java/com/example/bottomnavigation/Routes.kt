@@ -1,13 +1,60 @@
 package com.example.bottomnavigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.outlined.DateRange
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
 
-sealed class NavigationItem(val route: String, val icon: ImageVector) {
-    object Home : NavigationItem("Home", Icons.Default.Home)
-    object Shopping : NavigationItem("Cart", Icons.Default.ShoppingCart)
-    object Favorites : NavigationItem("Favorites", Icons.Default.Favorite)
-    object Calendar : NavigationItem("Calendar", Icons.Default.DateRange)
-    object Bin : NavigationItem("Bin", Icons.Default.Delete)
+sealed interface AppRoute {
+    val route: String
+    val selectedIcon: ImageVector
+    val unselectedIcon: ImageVector
+    val label: String
+
+    object Home : AppRoute {
+        override val route = "home"
+        override val selectedIcon = Icons.Filled.Home
+        override val unselectedIcon = Icons.Outlined.Home
+        override val label = "Home"
+    }
+
+    object Shopping : AppRoute {
+        override val route = "shopping"
+        override val selectedIcon = Icons.Filled.ShoppingCart
+        override val unselectedIcon = Icons.Outlined.ShoppingCart
+        override val label = "Cart"
+    }
+
+    object Favorites : AppRoute {
+        override val route = "favorites"
+        override val selectedIcon = Icons.Filled.Favorite
+        override val unselectedIcon = Icons.Outlined.FavoriteBorder
+        override val label = "Favorites"
+    }
+
+    object Calendar : AppRoute {
+        override val route = "calendar"
+        override val selectedIcon = Icons.Filled.DateRange
+        override val unselectedIcon = Icons.Outlined.DateRange
+        override val label = "Calendar"
+    }
+
+    object Bin : AppRoute {
+        override val route = "bin"
+        override val selectedIcon = Icons.Filled.Delete
+        override val unselectedIcon = Icons.Outlined.Delete
+        override val label = "Bin"
+    }
+
+    companion object {
+        val all = listOf(Home, Shopping, Favorites, Calendar, Bin)
+    }
 }
