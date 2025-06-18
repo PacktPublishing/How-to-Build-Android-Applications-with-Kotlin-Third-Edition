@@ -12,13 +12,16 @@ import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
+import kotlinx.serialization.Serializable
 
+@Serializable
 sealed interface AppRoute {
     val route: String
     val selectedIcon: ImageVector
     val unselectedIcon: ImageVector
     val label: String
 
+    @Serializable
     object Home : AppRoute {
         override val route = "home"
         override val selectedIcon = Icons.Filled.Home
@@ -26,6 +29,7 @@ sealed interface AppRoute {
         override val label = "Home"
     }
 
+    @Serializable
     object Shopping : AppRoute {
         override val route = "shopping"
         override val selectedIcon = Icons.Filled.ShoppingCart
@@ -33,6 +37,7 @@ sealed interface AppRoute {
         override val label = "Cart"
     }
 
+    @Serializable
     object Favorites : AppRoute {
         override val route = "favorites"
         override val selectedIcon = Icons.Filled.Favorite
@@ -40,6 +45,7 @@ sealed interface AppRoute {
         override val label = "Favorites"
     }
 
+    @Serializable
     object Calendar : AppRoute {
         override val route = "calendar"
         override val selectedIcon = Icons.Filled.DateRange
@@ -47,14 +53,12 @@ sealed interface AppRoute {
         override val label = "Calendar"
     }
 
+    @Serializable
     object Bin : AppRoute {
         override val route = "bin"
         override val selectedIcon = Icons.Filled.Delete
         override val unselectedIcon = Icons.Outlined.Delete
         override val label = "Bin"
     }
-
-    companion object {
-        val all = listOf(Home, Shopping, Favorites, Calendar, Bin)
-    }
 }
+

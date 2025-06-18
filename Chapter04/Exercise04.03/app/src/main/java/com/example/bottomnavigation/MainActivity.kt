@@ -1,7 +1,5 @@
 package com.example.bottomnavigation
 
-import android.net.http.SslCertificate.restoreState
-import android.net.http.SslCertificate.saveState
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,12 +7,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
@@ -23,9 +23,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.bottomnavigation.AppRoute.Bin
+import com.example.bottomnavigation.AppRoute.Calendar
+import com.example.bottomnavigation.AppRoute.Favorites
+import com.example.bottomnavigation.AppRoute.Home
+import com.example.bottomnavigation.AppRoute.Shopping
 import com.example.bottomnavigation.ui.theme.BottomNavigationTheme
-import androidx.compose.material3.Icon
-import androidx.compose.runtime.getValue
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,42 +42,25 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
-@Composable
-fun AppNavGraph(navController: NavHostController) {
-    NavHost(navController, startDestination = AppRoute.Home.route) {
-        composable(AppRoute.Home.route) { ContentScreen("Home") }
-        composable(AppRoute.Shopping.route) { ContentScreen("Cart") }
-        composable(AppRoute.Favorites.route) { ContentScreen("Favorites") }
-        composable(AppRoute.Calendar.route) { ContentScreen("Calendar") }
-        composable(AppRoute.Bin.route) { ContentScreen("Bin") }
-    }
-}
-
-
-@Composable
-fun ContentScreen(name: String) {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(name, fontSize = 28.sp)
-    }
-}
-
 @Composable
 fun MainApp() {
     val navController = rememberNavController()
     val currentBackStack by navController.currentBackStackEntryAsState()
-    val currentDestination = currentBackStack?.destination?.route
+    val currentRoute = currentBackStack?.destination?.route
+
+    val allRoutes = listOf(Home, Shopping, Favorites, Calendar, Bin)
 
     Scaffold(
         bottomBar = {
             NavigationBar {
-                AppRoute.all.forEach { screen ->
-                    val selected = screen.route == currentDestination
+                allRoutes.forEach { screen ->
+                    val route = screen::class.qualifiedName!!
+                    val isSelected = currentRoute == route
                     NavigationBarItem(
-                        selected = selected,
+                        selected = isSelected,
                         onClick = {
-                            if (!selected) {
-                                navController.navigate(screen.route) {
+                            if (!isSelected) {
+                                navController.navigate(screen) {
                                     popUpTo(navController.graph.startDestinationId) { saveState = true }
                                     launchSingleTop = true
                                     restoreState = true
@@ -83,7 +69,7 @@ fun MainApp() {
                         },
                         icon = {
                             Icon(
-                                imageVector = if (selected) screen.selectedIcon else screen.unselectedIcon,
+                                imageVector = if (isSelected) screen.selectedIcon else screen.unselectedIcon,
                                 contentDescription = screen.label
                             )
                         },
@@ -96,6 +82,17 @@ fun MainApp() {
         Box(Modifier.padding(innerPadding)) {
             AppNavGraph(navController)
         }
+    }
+}
+
+@Composable
+fun AppNavGraph(navController: NavHostController) {
+    NavHost(navController = navController, startDestination = Home) {
+        composable<Home> { ContentScreen("Home") }
+        composable<Shopping> { ContentScreen("Cart") }
+        composable<Favorites> { ContentScreen("Favorites") }
+        composable<Calendar> { ContentScreen("Calendar") }
+        composable<Bin> { ContentScreen("Bin") }
     }
 }
 
