@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -14,10 +13,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -50,12 +50,13 @@ fun MainApp() {
 
     val allRoutes = listOf(Home, Shopping, Favorites, Calendar, Bin)
 
+    var currentIndex by rememberSaveable { mutableIntStateOf(0) }
+
     Scaffold(
         bottomBar = {
             NavigationBar {
-                allRoutes.forEach { screen ->
-                    val route = screen::class.qualifiedName!!
-                    val isSelected = currentRoute == route
+                allRoutes.forEachIndexed { screenIndex, screen ->
+                    val isSelected = currentIndex == screenIndex
                     NavigationBarItem(
                         selected = isSelected,
                         onClick = {
@@ -65,6 +66,7 @@ fun MainApp() {
                                     launchSingleTop = true
                                     restoreState = true
                                 }
+                                currentIndex = screenIndex
                             }
                         },
                         icon = {
