@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -18,6 +20,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -42,59 +45,72 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
-fun MainApp() {
-    val navController = rememberNavController()
-    val currentBackStack by navController.currentBackStackEntryAsState()
-    val currentRoute = currentBackStack?.destination?.route
-
-    val allRoutes = listOf(Home, Shopping, Favorites, Calendar, Bin)
-
-    var currentIndex by rememberSaveable { mutableIntStateOf(0) }
+fun MainApp(navController: NavHostController = rememberNavController()) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
 
     Scaffold(
         bottomBar = {
             NavigationBar {
-                allRoutes.forEachIndexed { screenIndex, screen ->
-                    val isSelected = currentIndex == screenIndex
+                AppRoute.all.forEach { item ->
+                    val selected = currentDestination?.hasRoute(item::class) == true
                     NavigationBarItem(
-                        selected = isSelected,
-                        onClick = {
-                            if (!isSelected) {
-                                navController.navigate(screen) {
-                                    popUpTo(navController.graph.startDestinationId) { saveState = true }
-                                    launchSingleTop = true
-                                    restoreState = true
+                        selected = selected,
+                        icon = {
+                            BadgedBox(
+                                badge = {
+                                    if (item.badgeCount > 0) {
+                                        Badge { Text(item.badgeCount.toString()) }
+                                    }
                                 }
-                                currentIndex = screenIndex
+                            ) {
+                                Icon(
+                                    imageVector = if (selected) item.selectedIcon else item.unselectedIcon,
+                                    contentDescription = item.label
+                                )
                             }
                         },
-                        icon = {
-                            Icon(
-                                imageVector = if (isSelected) screen.selectedIcon else screen.unselectedIcon,
-                                contentDescription = screen.label
-                            )
-                        },
-                        label = { Text(screen.label) }
+                        label = { Text(item.label) },
+                        onClick = {
+                            if (!selected) {
+                                navController.navigate(item) {
+                                    launchSingleTop = true
+                                    restoreState = true
+                                    popUpTo(navController.graph.startDestinationId) {
+                                        saveState = true
+                                    }
+                                }
+                            }
+                        }
                     )
                 }
             }
         }
     ) { innerPadding ->
-        Box(Modifier.padding(innerPadding)) {
-            AppNavGraph(navController)
+        NavHost(
+            navController = navController,
+            modifier = Modifier.padding(innerPadding),
+            startDestination = Home
+        ) {
+            composable<Home> { ContentScreen("Home") }
+            composable<Shopping> { ContentScreen("Cart") }
+            composable<Favorites> { ContentScreen("Favorites") }
+            composable<Calendar> { ContentScreen("Calendar") }
+            composable<Bin> { ContentScreen("Bin") }
+        }
+    }
+
+    @Composable
+    fun BadgedBox(badge: () -> Unit, content: @Composable () -> Unit) {
+        // Implement as needed or use androidx.compose.material3.BadgedBox
+        // This is a placeholder to avoid compilation errors
+
+
+        @Composable
+        fun BadgedBox(badge: () -> Unit, content: @Composable () -> Unit) {
+            TODO("Not yet implemented")
         }
     }
 }
-
-@Composable
-fun AppNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Home) {
-        composable<Home> { ContentScreen("Home") }
-        composable<Shopping> { ContentScreen("Cart") }
-        composable<Favorites> { ContentScreen("Favorites") }
-        composable<Calendar> { ContentScreen("Calendar") }
-        composable<Bin> { ContentScreen("Bin") }
-    }
-}
-

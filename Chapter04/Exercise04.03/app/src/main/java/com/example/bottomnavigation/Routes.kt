@@ -1,25 +1,18 @@
+// nav/AppRoute.kt
 package com.example.bottomnavigation
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material.icons.outlined.DateRange
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.*
 import kotlinx.serialization.Serializable
 
-@Serializable
 sealed interface AppRoute {
     val route: String
     val selectedIcon: ImageVector
     val unselectedIcon: ImageVector
     val label: String
+    val badgeCount: Int
 
     @Serializable
     object Home : AppRoute {
@@ -27,6 +20,7 @@ sealed interface AppRoute {
         override val selectedIcon = Icons.Filled.Home
         override val unselectedIcon = Icons.Outlined.Home
         override val label = "Home"
+        override val badgeCount = 0
     }
 
     @Serializable
@@ -35,6 +29,7 @@ sealed interface AppRoute {
         override val selectedIcon = Icons.Filled.ShoppingCart
         override val unselectedIcon = Icons.Outlined.ShoppingCart
         override val label = "Cart"
+        override val badgeCount = 3
     }
 
     @Serializable
@@ -43,6 +38,7 @@ sealed interface AppRoute {
         override val selectedIcon = Icons.Filled.Favorite
         override val unselectedIcon = Icons.Outlined.FavoriteBorder
         override val label = "Favorites"
+        override val badgeCount = 2
     }
 
     @Serializable
@@ -51,6 +47,7 @@ sealed interface AppRoute {
         override val selectedIcon = Icons.Filled.DateRange
         override val unselectedIcon = Icons.Outlined.DateRange
         override val label = "Calendar"
+        override val badgeCount = 1
     }
 
     @Serializable
@@ -59,6 +56,10 @@ sealed interface AppRoute {
         override val selectedIcon = Icons.Filled.Delete
         override val unselectedIcon = Icons.Outlined.Delete
         override val label = "Bin"
+        override val badgeCount = 5
+    }
+
+    companion object {
+        val all = listOf(Home, Shopping, Favorites, Calendar, Bin)
     }
 }
-
