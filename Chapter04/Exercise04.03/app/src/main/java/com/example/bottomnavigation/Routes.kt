@@ -7,16 +7,14 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
 import kotlinx.serialization.Serializable
 
-sealed interface AppRoute {
-    val route: String
+sealed interface Route {
     val selectedIcon: ImageVector
     val unselectedIcon: ImageVector
     val label: String
     val badgeCount: Int
 
     @Serializable
-    object Home : AppRoute {
-        override val route = "home"
+    object Home : Route {
         override val selectedIcon = Icons.Filled.Home
         override val unselectedIcon = Icons.Outlined.Home
         override val label = "Home"
@@ -24,26 +22,23 @@ sealed interface AppRoute {
     }
 
     @Serializable
-    object Shopping : AppRoute {
-        override val route = "shopping"
+    object Shopping : Route {
         override val selectedIcon = Icons.Filled.ShoppingCart
         override val unselectedIcon = Icons.Outlined.ShoppingCart
         override val label = "Cart"
-        override val badgeCount = 3
+        override val badgeCount = 0
     }
 
     @Serializable
-    object Favorites : AppRoute {
-        override val route = "favorites"
+    object Favorites : Route {
         override val selectedIcon = Icons.Filled.Favorite
         override val unselectedIcon = Icons.Outlined.FavoriteBorder
         override val label = "Favorites"
-        override val badgeCount = 2
+        override val badgeCount = 0
     }
 
     @Serializable
-    object Calendar : AppRoute {
-        override val route = "calendar"
+    object Calendar : Route {
         override val selectedIcon = Icons.Filled.DateRange
         override val unselectedIcon = Icons.Outlined.DateRange
         override val label = "Calendar"
@@ -51,15 +46,10 @@ sealed interface AppRoute {
     }
 
     @Serializable
-    object Bin : AppRoute {
-        override val route = "bin"
+    object Bin : Route {
         override val selectedIcon = Icons.Filled.Delete
         override val unselectedIcon = Icons.Outlined.Delete
         override val label = "Bin"
-        override val badgeCount = 5
-    }
-
-    companion object {
-        val all = listOf(Home, Shopping, Favorites, Calendar, Bin)
+        override val badgeCount = 0
     }
 }
