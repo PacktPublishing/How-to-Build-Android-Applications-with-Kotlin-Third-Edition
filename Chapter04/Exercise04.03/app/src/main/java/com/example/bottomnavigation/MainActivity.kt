@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
@@ -15,10 +14,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
@@ -26,11 +21,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.bottomnavigation.AppRoute.Bin
-import com.example.bottomnavigation.AppRoute.Calendar
-import com.example.bottomnavigation.AppRoute.Favorites
-import com.example.bottomnavigation.AppRoute.Home
-import com.example.bottomnavigation.AppRoute.Shopping
+import com.example.bottomnavigation.Route.Bin
+import com.example.bottomnavigation.Route.Calendar
+import com.example.bottomnavigation.Route.Favorites
+import com.example.bottomnavigation.Route.Home
+import com.example.bottomnavigation.Route.Shopping
 import com.example.bottomnavigation.ui.theme.BottomNavigationTheme
 
 class MainActivity : ComponentActivity() {
@@ -51,10 +46,12 @@ fun MainApp(navController: NavHostController = rememberNavController()) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
+    val routes = listOf(Home, Shopping, Favorites, Calendar, Bin)
+
     Scaffold(
         bottomBar = {
             NavigationBar {
-                AppRoute.all.forEach { item ->
+                routes.forEach { item ->
                     val selected = currentDestination?.hasRoute(item::class) == true
                     NavigationBarItem(
                         selected = selected,
@@ -99,18 +96,6 @@ fun MainApp(navController: NavHostController = rememberNavController()) {
             composable<Favorites> { ContentScreen("Favorites") }
             composable<Calendar> { ContentScreen("Calendar") }
             composable<Bin> { ContentScreen("Bin") }
-        }
-    }
-
-    @Composable
-    fun BadgedBox(badge: () -> Unit, content: @Composable () -> Unit) {
-        // Implement as needed or use androidx.compose.material3.BadgedBox
-        // This is a placeholder to avoid compilation errors
-
-
-        @Composable
-        fun BadgedBox(badge: () -> Unit, content: @Composable () -> Unit) {
-            TODO("Not yet implemented")
         }
     }
 }
