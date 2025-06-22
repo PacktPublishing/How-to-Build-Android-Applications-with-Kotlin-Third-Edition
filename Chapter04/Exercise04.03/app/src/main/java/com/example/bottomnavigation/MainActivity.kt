@@ -40,7 +40,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
 @Composable
 fun MainApp(navController: NavHostController = rememberNavController()) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -91,11 +90,11 @@ fun MainApp(navController: NavHostController = rememberNavController()) {
             modifier = Modifier.padding(innerPadding),
             startDestination = Home
         ) {
-            composable<Home> { ContentScreen("Home") }
-            composable<Shopping> { ContentScreen("Cart") }
-            composable<Favorites> { ContentScreen("Favorites") }
-            composable<Calendar> { ContentScreen("Calendar") }
-            composable<Bin> { ContentScreen("Bin") }
+            composable<Home> { Home.label }
+            composable<Shopping> { Shopping.label }
+            composable<Favorites> { Favorites.label }
+            composable<Calendar> { Calendar.label }
+            composable<Bin> { Bin.label }
         }
     }
 }
