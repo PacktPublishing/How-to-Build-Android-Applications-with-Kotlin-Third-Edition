@@ -65,12 +65,12 @@ class MainActivity : ComponentActivity() {
                 Column {
                     CenterAlignedTopAppBar(title = { Text(stringResource(R.string.app_name)) })
                     ScrollableTabRow(selectedTabIndex = tabIndex) {
-                        routes.forEachIndexed { index, item ->
+                        routes.forEach{  item ->
                             Tab(
-                                selected = index == tabIndex,
+                                selected = currentDestination?.hasRoute(item::class) == true ,
                                 text = { Text(item.label) },
                                 onClick = {
-                                    if (index != tabIndex) {
+                                    if (currentDestination?.hasRoute(item::class) == false) {
                                         navController.navigate(item) {
                                             launchSingleTop = true
                                             restoreState = true
