@@ -1,55 +1,48 @@
 // nav/AppRoute.kt
 package com.example.bottomnavigation
 
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.*
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.outlined.DateRange
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.ShoppingCart
+import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.serialization.Serializable
 
-sealed interface Route {
-    val selectedIcon: ImageVector
-    val unselectedIcon: ImageVector
-    val label: String
-    val badgeCount: Int
+@Serializable
+sealed class Destinations(
+    open val label: String,
+    open val badgeCount: Int
+) {
+    @Serializable
+    data object Home : Destinations("Home", 0)
 
     @Serializable
-    object Home : Route {
-        override val selectedIcon = Icons.Filled.Home
-        override val unselectedIcon = Icons.Outlined.Home
-        override val label = "Home"
-        override val badgeCount = 0
-    }
+    data object Shopping : Destinations("Cart", 0)
 
     @Serializable
-    object Shopping : Route {
-        override val selectedIcon = Icons.Filled.ShoppingCart
-        override val unselectedIcon = Icons.Outlined.ShoppingCart
-        override val label = "Cart"
-        override val badgeCount = 0
-    }
+    data object Favorites : Destinations("Favorites", 0)
 
     @Serializable
-    object Favorites : Route {
-        override val selectedIcon = Icons.Filled.Favorite
-        override val unselectedIcon = Icons.Outlined.FavoriteBorder
-        override val label = "Favorites"
-        override val badgeCount = 0
-    }
+    data object Calendar : Destinations("Calendar", 1)
 
     @Serializable
-    object Calendar : Route {
-        override val selectedIcon = Icons.Filled.DateRange
-        override val unselectedIcon = Icons.Outlined.DateRange
-        override val label = "Calendar"
-        override val badgeCount = 1
-    }
+    data object Bin : Destinations("Bin", 0)
+}
 
-    @Serializable
-    object Bin : Route {
-        override val selectedIcon = Icons.Filled.Delete
-        override val unselectedIcon = Icons.Outlined.Delete
-        override val label = "Bin"
-        override val badgeCount = 0
-    }
+
+sealed class BottomNavigation(val label: String, val selectedIcon: ImageVector, val unselectedIcon: ImageVector, val route: Destinations) {
+    data object Home : BottomNavigation("Home", Icons.Filled.Home, Icons.Outlined.Home, Destinations.Home )
+    data object Shopping : BottomNavigation("Cart", Icons.Filled.ShoppingCart, Icons.Outlined.ShoppingCart, Destinations.Shopping )
+    data object Favorites : BottomNavigation("Favorites", Icons.Filled.Favorite, Icons.Outlined.FavoriteBorder, Destinations.Favorites )
+    data object Calendar : BottomNavigation("Calendar", Icons.Filled.DateRange, Icons.Outlined.DateRange, Destinations.Calendar )
+    data object Bin : BottomNavigation("Bin", Icons.Filled.Delete, Icons.Outlined.Delete, Destinations.Bin )
 }

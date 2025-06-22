@@ -72,12 +72,8 @@ class MainActivity : ComponentActivity() {
                                 onClick = {
                                     if (currentDestination?.hasRoute(item::class) == false) {
                                         navController.navigate(item) {
+                                            popUpTo(navController.graph.startDestinationId)
                                             launchSingleTop = true
-                                            restoreState = true
-                                            popUpTo(TopStories) {
-                                                saveState = false
-                                                inclusive = false
-                                            }
                                         }
                                     }
                                 }
