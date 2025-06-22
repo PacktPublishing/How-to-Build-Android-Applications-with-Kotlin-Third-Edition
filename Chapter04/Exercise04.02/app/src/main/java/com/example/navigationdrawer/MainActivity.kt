@@ -75,18 +75,10 @@ fun MainApp(navController: NavHostController = rememberNavController()) {
                     NavigationBarItem(
                         selected = selected,
                         icon = {
-                            BadgedBox(
-                                badge = {
-                                    if (item.badgeCount > 0) {
-                                        Badge { Text(item.badgeCount.toString()) }
-                                    }
-                                }
-                            ) {
-                                Icon(
-                                    imageVector = if (selected) item.selectedIcon else item.unselectedIcon,
-                                    contentDescription = item.label
-                                )
-                            }
+                            Icon(
+                                imageVector = if (selected) item.selectedIcon else item.unselectedIcon,
+                                contentDescription = item.label
+                            )
                         },
                         label = { Text(item.label) },
                         onClick = {
