@@ -14,3 +14,4 @@ fun ContentScreen(name: String) {
         Text(name, fontSize = 28.sp)
     }
 }
+
