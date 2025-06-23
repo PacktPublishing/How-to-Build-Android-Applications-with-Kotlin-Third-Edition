@@ -3,15 +3,14 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
-
 }
 
 android {
-    namespace = "com.example.bottomnavigation"
+    namespace = "com.example.navigationdrawer"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.bottomnavigation"
+        applicationId = "com.example.navigationdrawer"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

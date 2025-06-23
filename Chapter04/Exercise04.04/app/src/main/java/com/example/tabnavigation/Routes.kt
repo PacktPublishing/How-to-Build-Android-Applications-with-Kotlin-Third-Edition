@@ -1,62 +1,38 @@
 package com.example.tabnavigation
 
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.*
 import kotlinx.serialization.Serializable
 
-sealed interface Route {
-    val selectedIcon: ImageVector
-    val unselectedIcon: ImageVector
-    val label: String
+
+@Serializable
+sealed class Destinations(val label: String,) {
+    @Serializable
+    data object TopStories : Destinations("Top Stories")
 
     @Serializable
-    object TopStories : Route {
-        override val selectedIcon = Icons.Filled.Home
-        override val unselectedIcon = Icons.Outlined.Home
-        override val label = "Top Stories"
-    }
+    data object UKNews : Destinations("UK News")
 
     @Serializable
-    object UKNews : Route {
-        override val selectedIcon = Icons.Filled.ShoppingCart
-        override val unselectedIcon = Icons.Outlined.ShoppingCart
-        override val label = "UK News"
-    }
+    data object Politics : Destinations("Politics")
 
     @Serializable
-    object Politics : Route {
-        override val selectedIcon = Icons.Filled.Favorite
-        override val unselectedIcon = Icons.Outlined.FavoriteBorder
-        override val label = "Politics"
-    }
+    data object WorldNews : Destinations("World News")
 
     @Serializable
-    object WorldNews : Route {
-        override val selectedIcon = Icons.Filled.DateRange
-        override val unselectedIcon = Icons.Outlined.DateRange
-        override val label = "World News"
-    }
+    data object Business : Destinations("Business")
 
     @Serializable
-    object Business : Route {
-        override val selectedIcon = Icons.Filled.Delete
-        override val unselectedIcon = Icons.Outlined.Delete
-        override val label = "Business"
-    }
+    data object Sport : Destinations("Sport")
 
     @Serializable
-    object Sport : Route {
-        override val selectedIcon = Icons.Filled.Delete
-        override val unselectedIcon = Icons.Outlined.Delete
-        override val label = "Sport"
-    }
+    data object Other : Destinations("Other")
+}
 
-    @Serializable
-    object Other : Route {
-        override val selectedIcon = Icons.Filled.Delete
-        override val unselectedIcon = Icons.Outlined.Delete
-        override val label = "Other"
-    }
+sealed class TabNavigation(val label: String, val route: Destinations) {
+    data object TopStories : TabNavigation("Top Stories",  Destinations.TopStories )
+    data object UKNews : TabNavigation("UK News",  Destinations.UKNews )
+    data object Politics : TabNavigation("Politics",  Destinations.Politics )
+    data object WorldNews : TabNavigation("World News",  Destinations.WorldNews )
+    data object Business : TabNavigation("Business",  Destinations.Business )
+    data object Sport : TabNavigation("Sport",  Destinations.Sport )
+    data object Other : TabNavigation("Other",  Destinations.Other )
 }

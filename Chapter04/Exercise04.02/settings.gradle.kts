@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Bottom Navigation"
+rootProject.name = "Navigation Drawer"
 include(":app")
  

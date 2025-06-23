@@ -1,4 +1,4 @@
-package com.example.bottomnavigation.ui.theme
+package com.example.navigationdrawer.ui.theme
 
 import android.app.Activity
 import android.os.Build
