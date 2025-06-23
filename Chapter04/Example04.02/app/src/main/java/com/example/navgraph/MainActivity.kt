@@ -19,6 +19,14 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.navgraph.Detail
+import kotlinx.serialization.Serializable
+
+@Serializable
+data object Home
+
+@Serializable
+data object Detail
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,13 +42,13 @@ fun NavigationApp() {
     val navHostController = rememberNavController()
     NavHost(
         navController = navHostController,
-        startDestination = "home",
+        startDestination = Home,
         builder = (
                 {
-                    composable("home") {
+                    composable<Home> {
                         HomeScreen(navHostController)
                     }
-                    composable("detail") {
+                    composable<Detail> {
                         DetailScreen(navHostController)
                     }
                 })
@@ -59,7 +67,7 @@ fun HomeScreen(navController: NavController) {
                     .padding(paddingValues)
             ) {
                 Button(
-                    onClick = { navController.navigate("detail") },
+                    onClick = { navController.navigate(Detail) },
                     modifier = Modifier.align(Alignment.Center)
                 ) {
                     Text("Go to Detail Screen")
@@ -81,7 +89,7 @@ fun DetailScreen(navController: NavController) {
                     .padding(paddingValues)
             ) {
                 Button(
-                    onClick = { navController.navigate("home") },
+                    onClick = { navController.navigate(Home) },
                     modifier = Modifier.align(Alignment.Center)
                 ) {
                     Text("Go to Home Screen")
