@@ -1,5 +1,5 @@
 // nav/AppRoute.kt
-package com.example.bottomnavigation
+package com.example.navigationdrawer
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
