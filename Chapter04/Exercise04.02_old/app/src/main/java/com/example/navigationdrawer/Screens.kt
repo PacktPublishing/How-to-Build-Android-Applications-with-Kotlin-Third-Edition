@@ -74,7 +74,7 @@ fun MainScreen() {
                         }
                     )
                 },
-                modifier = Modifier.fillMaxSize() // Ensure Scaffold takes up the full space
+                modifier = Modifier.fillMaxSize()
             ) { paddingValues ->
                 NavigationHost(
                     navController,
