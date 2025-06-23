@@ -1,14 +1,10 @@
 package com.example.tabnavigation
 
-import android.net.http.SslCertificate.restoreState
-import android.net.http.SslCertificate.saveState
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,24 +14,20 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.tabnavigation.Route.Business
-import com.example.tabnavigation.Route.Other
-import com.example.tabnavigation.Route.Politics
-import com.example.tabnavigation.Route.Sport
-import com.example.tabnavigation.Route.TopStories
-import com.example.tabnavigation.Route.UKNews
-import com.example.tabnavigation.Route.WorldNews
+import com.example.tabnavigation.Destinations.Business
+import com.example.tabnavigation.Destinations.Other
+import com.example.tabnavigation.Destinations.Politics
+import com.example.tabnavigation.Destinations.Sport
+import com.example.tabnavigation.Destinations.TopStories
+import com.example.tabnavigation.Destinations.UKNews
+import com.example.tabnavigation.Destinations.WorldNews
 import com.example.tabnavigation.ui.theme.TabNavigationTheme
 
 class MainActivity : ComponentActivity() {
@@ -54,24 +46,34 @@ class MainActivity : ComponentActivity() {
     fun MainApp() {
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentDestination = navBackStackEntry?.destination
 
-        val routes = listOf(TopStories, UKNews, Politics, Business, WorldNews, Sport, Other)
+        val tabNagigationItems = listOf(
+            TabNavigation.TopStories,
+            TabNavigation.UKNews,
+            TabNavigation.Politics,
+            TabNavigation.WorldNews,
+            TabNavigation.Business,
+            TabNavigation.Sport,
+            TabNavigation.Other
+        )
 
-        val tabIndex = routes.indexOfFirst { currentDestination?.hasRoute(it::class) == true }.takeIf { it >= 0 } ?: 0
+        val tabIndex = tabNagigationItems.indexOfFirst { navBackStackEntry?.destination?.hasRoute(it.route::class) == true }.takeIf { it >= 0 } ?: 0
 
         Scaffold(
             topBar = {
                 Column {
                     CenterAlignedTopAppBar(title = { Text(stringResource(R.string.app_name)) })
                     ScrollableTabRow(selectedTabIndex = tabIndex) {
-                        routes.forEach{  item ->
+                        tabNagigationItems.forEach { item ->
+
+                            val selected = navBackStackEntry?.destination?.hasRoute(item.route::class) == true
+
                             Tab(
-                                selected = currentDestination?.hasRoute(item::class) == true ,
+                                selected = selected,
                                 text = { Text(item.label) },
                                 onClick = {
-                                    if (currentDestination?.hasRoute(item::class) == false) {
-                                        navController.navigate(item) {
+                                    if (!selected) {
+                                        navController.navigate(item.route) {
                                             popUpTo(navController.graph.startDestinationId)
                                             launchSingleTop = true
                                         }
