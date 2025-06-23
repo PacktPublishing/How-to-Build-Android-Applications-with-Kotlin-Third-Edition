@@ -22,7 +22,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// Set up NavHost to handle navigation between different routes
 @Composable
 fun NavigationApp() {
     val navController = rememberNavController()
