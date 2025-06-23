@@ -44,9 +44,9 @@ fun HomeScreen(navController: NavController) {
         ) {
             Box(
                 modifier = Modifier
-                    .size(150.dp) // Increased size of the boxes
-                    .border(4.dp, Color.Red, shape = RoundedCornerShape(16.dp))
-                    .clickable { navController.navigate(Routes.Red.route) }
+                    .size(150.dp)
+                    .border(4.dp, Color(0xFFFF0000), shape = RoundedCornerShape(16.dp))
+                    .clickable { navController.navigate(Color("RED", 0xFFFF0000))}
                     .padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
@@ -57,9 +57,9 @@ fun HomeScreen(navController: NavController) {
 
             Box(
                 modifier = Modifier
-                    .size(150.dp) // Increased size of the boxes
-                    .border(4.dp, Color.Green, shape = RoundedCornerShape(16.dp))
-                    .clickable { navController.navigate(Routes.Green.route) }
+                    .size(150.dp)
+                    .border(4.dp, Color(0xFF00FF00), shape = RoundedCornerShape(16.dp))
+                    .clickable { navController.navigate(Color("GREEN", 0xFF00FF00))}
                     .padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
@@ -70,9 +70,9 @@ fun HomeScreen(navController: NavController) {
 
             Box(
                 modifier = Modifier
-                    .size(150.dp) // Increased size of the boxes
-                    .border(4.dp, Color.Blue, shape = RoundedCornerShape(16.dp))
-                    .clickable { navController.navigate(Routes.Blue.route) }
+                    .size(150.dp)
+                    .border(4.dp, Color(0xFF0000FF), shape = RoundedCornerShape(16.dp))
+                    .clickable { navController.navigate(Color("BLUE", 0xFF0000FF))}
                     .padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
@@ -84,13 +84,13 @@ fun HomeScreen(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ColorScreen(navController: NavController, title: String, color: Color) {
+fun ColorScreen(navController: NavController, colorName: String, colorValue: Long) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 modifier = Modifier.fillMaxWidth(),
                 title = {
-                        Text(title)
+                        Text(colorName)
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
@@ -104,10 +104,10 @@ fun ColorScreen(navController: NavController, title: String, color: Color) {
             modifier = Modifier
                 .padding(padding)
                 .fillMaxSize()
-                .background(color),
+                .background(Color(colorValue)),
             contentAlignment = Alignment.Center
         ) {
-            Text(text = "$title Screen", color = color)
+            Text(text = "$colorName Screen", color = Color(colorValue))
         }
     }
 }
