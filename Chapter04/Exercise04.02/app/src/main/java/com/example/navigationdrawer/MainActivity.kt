@@ -4,14 +4,41 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.navigationdrawer.ui.theme.NavigationDrawerTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,29 +46,101 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NavigationDrawerTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                MainApp()
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
+fun MainApp(navController: NavHostController = rememberNavController()) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    val navigationDrawerItems = listOf(
+        NavigationDrawer.Home,
+        NavigationDrawer.Shopping,
+        NavigationDrawer.Favorites,
+        NavigationDrawer.Calendar,
+        NavigationDrawer.Bin
     )
-}
+    val drawerState = rememberDrawerState(initialValue = androidx.compose.material3.DrawerValue.Closed)
+    val coroutineScope = rememberCoroutineScope()
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NavigationDrawerTheme {
-        Greeting("Android")
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            ModalDrawerSheet(
+                modifier = Modifier.width(256.dp)
+            )  {
+                Box(modifier = Modifier.width(256.dp),
+                    contentAlignment = Alignment.Center) {
+                    Image(
+                        modifier = Modifier.width(120.dp),
+                        painter = painterResource(id = R.drawable.ic_launcher_background),
+                        contentDescription = "Logo",
+
+                        )
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                        contentDescription = "Logo",
+                        modifier = Modifier.padding(16.dp)
+                    )
+                }
+
+                navigationDrawerItems.forEach { item ->
+                    NavigationDrawerItem(
+                        icon = { Icon(imageVector = item.selectedIcon, contentDescription = item.label) },
+                        label = { Text(item.label) },
+                        selected = currentDestination?.hasRoute(item.route::class) == true,
+                        onClick = {
+                            navController.navigate(item.route) {
+                                launchSingleTop = true
+                                restoreState = true
+                                popUpTo(navController.graph.startDestinationId) {
+                                    saveState = true
+                                }
+                            }
+                            coroutineScope.launch {
+                                drawerState.close()
+                            }
+                        }
+                    )
+                }
+            }
+        }
+    ) {
+        Scaffold(
+            topBar = {
+                CenterAlignedTopAppBar(
+                    title = { Text(stringResource(R.string.app_name)) },
+                    modifier = Modifier.statusBarsPadding(),
+                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainer
+                    ),
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            coroutineScope.launch {
+                                drawerState.open()
+                            }
+                        }) {
+                            Icon(Icons.Default.Menu, contentDescription = "Menu")
+                        }
+                    }
+                )
+            }
+        ) { innerPadding ->
+            NavHost(
+                navController = navController,
+                modifier = Modifier.padding(innerPadding),
+                startDestination = Destination.Home
+            ) {
+                composable<Destination.Home> { ContentScreen(Destination.Home.label) }
+                composable<Destination.Shopping> { ContentScreen(Destination.Shopping.label) }
+                composable<Destination.Favorites> { ContentScreen(Destination.Favorites.label) }
+                composable<Destination.Calendar> { ContentScreen(Destination.Calendar.label) }
+                composable<Destination.Bin> { ContentScreen(Destination.Bin.label) }
+            }
+        }
     }
 }

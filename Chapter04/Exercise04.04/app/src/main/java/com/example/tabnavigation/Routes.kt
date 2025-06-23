@@ -4,35 +4,35 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-sealed class Destinations(val label: String,) {
+sealed class Destination(val label: String,) {
     @Serializable
-    data object TopStories : Destinations("Top Stories")
+    data object TopStories : Destination("Top Stories")
 
     @Serializable
-    data object UKNews : Destinations("UK News")
+    data object UKNews : Destination("UK News")
 
     @Serializable
-    data object Politics : Destinations("Politics")
+    data object Politics : Destination("Politics")
 
     @Serializable
-    data object WorldNews : Destinations("World News")
+    data object WorldNews : Destination("World News")
 
     @Serializable
-    data object Business : Destinations("Business")
+    data object Business : Destination("Business")
 
     @Serializable
-    data object Sport : Destinations("Sport")
+    data object Sport : Destination("Sport")
 
     @Serializable
-    data object Other : Destinations("Other")
+    data object Other : Destination("Other")
 }
 
-sealed class TabNavigation(val label: String, val route: Destinations) {
-    data object TopStories : TabNavigation("Top Stories",  Destinations.TopStories )
-    data object UKNews : TabNavigation("UK News",  Destinations.UKNews )
-    data object Politics : TabNavigation("Politics",  Destinations.Politics )
-    data object WorldNews : TabNavigation("World News",  Destinations.WorldNews )
-    data object Business : TabNavigation("Business",  Destinations.Business )
-    data object Sport : TabNavigation("Sport",  Destinations.Sport )
-    data object Other : TabNavigation("Other",  Destinations.Other )
+sealed class TabNavigation(val label: String, val route: Destination) {
+    data object TopStories : TabNavigation("Top Stories",  Destination.TopStories )
+    data object UKNews : TabNavigation("UK News",  Destination.UKNews )
+    data object Politics : TabNavigation("Politics",  Destination.Politics )
+    data object WorldNews : TabNavigation("World News",  Destination.WorldNews )
+    data object Business : TabNavigation("Business",  Destination.Business )
+    data object Sport : TabNavigation("Sport",  Destination.Sport )
+    data object Other : TabNavigation("Other",  Destination.Other )
 }

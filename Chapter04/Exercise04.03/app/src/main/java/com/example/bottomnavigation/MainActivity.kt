@@ -5,18 +5,22 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
@@ -24,11 +28,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.bottomnavigation.Destinations.Bin
-import com.example.bottomnavigation.Destinations.Calendar
-import com.example.bottomnavigation.Destinations.Favorites
-import com.example.bottomnavigation.Destinations.Home
-import com.example.bottomnavigation.Destinations.Shopping
+import com.example.bottomnavigation.Destination.Bin
+import com.example.bottomnavigation.Destination.Calendar
+import com.example.bottomnavigation.Destination.Favorites
+import com.example.bottomnavigation.Destination.Home
+import com.example.bottomnavigation.Destination.Shopping
 import com.example.bottomnavigation.ui.theme.BottomNavigationTheme
 
 class MainActivity : ComponentActivity() {
@@ -47,6 +51,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainApp(navController: NavHostController = rememberNavController()) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
 
     val bottomNavigationItems = listOf(
         BottomNavigation.Home,
@@ -58,13 +63,19 @@ fun MainApp(navController: NavHostController = rememberNavController()) {
 
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(title = { Text(stringResource(R.string.app_name)) })
+            CenterAlignedTopAppBar(
+                title = { Text(stringResource(R.string.app_name)) },
+                modifier = Modifier.statusBarsPadding(),
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainer
+                )
+            )
         },
         bottomBar = {
             NavigationBar {
                 bottomNavigationItems.forEach { item ->
 
-                    val selected = navBackStackEntry?.destination?.hasRoute(item.route::class) == true
+                    val selected = currentDestination?.hasRoute(item.route::class) == true
 
                     NavigationBarItem(
                         selected = selected,
