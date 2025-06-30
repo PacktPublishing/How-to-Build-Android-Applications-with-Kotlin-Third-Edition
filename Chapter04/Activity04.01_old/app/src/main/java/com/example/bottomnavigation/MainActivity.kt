@@ -1,8 +1,9 @@
-package com.example.mysports
+package com.example.bottomnavigation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -13,31 +14,27 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
-import com.example.bottomnavigation.ContentScreen
-import com.example.bottomnavigation.SportsScreen
-import com.example.mysports.AppRoute.CalendarAppRoute
-import com.example.mysports.AppRoute.HomeAppRoute
-import com.example.mysports.AppRoute.MySportItemAppRoute
-import com.example.mysports.AppRoute.MySportsAppRoute
-import com.example.mysports.AppRoute.ProfileAppRoute
-import com.example.mysports.ui.theme.MySportsTheme
+import com.example.bottomnavigation.ui.theme.BottomNavigationTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MySportsTheme {
+            BottomNavigationTheme {
                 MainScreen()
             }
         }
@@ -67,35 +64,25 @@ fun MainScreen() {
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
-
     val items = listOf(
-        AppBottomNavigation.Home,
-        AppBottomNavigation.Calendar,
-        AppBottomNavigation.Profile,
-        AppBottomNavigation.MySports,
+        NavigationItem.Home,
+        NavigationItem.Calendar,
+        NavigationItem.Profile,
+        NavigationItem.MySports
     )
-
     val navBackStackEntry = navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry.value?.destination
+    val currentRoute = navBackStackEntry.value?.destination?.route
 
     NavigationBar(
         containerColor = Color.White,
         contentColor = Color.Black
     ) {
         items.forEach { item ->
-
-            val isSelected = currentDestination?.hasRoute(item.route::class) == true
-
             NavigationBarItem(
-                selected = isSelected,
-                icon = {
-                    Icon(
-                        imageVector = if (isSelected) item.selectedIcon else item.unselectedIcon,
-                        contentDescription = item.label
-                    )
-                },
-                label = { Text(item.label) },
-                onClick = { navController.navigate(item.route) }
+                icon = { Icon(item.icon, contentDescription = item.route) },
+                label = { Text(item.route) },
+                selected = currentRoute == item.route,
+                onClick = {navController.navigate(item.route) }
             )
         }
     }
@@ -105,24 +92,23 @@ fun BottomNavigationBar(navController: NavHostController) {
 fun NavigationHost(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
-        startDestination = HomeAppRoute,
+        startDestination = NavigationItem.Home.route,
         modifier = modifier
     ) {
-        composable<HomeAppRoute> {
-            ContentScreen("Home")
-        }
-        composable<ProfileAppRoute> {
-            ContentScreen("Calendar")
-        }
-        composable<CalendarAppRoute> {
-            ContentScreen("Profile")
-        }
-        composable<MySportsAppRoute> {
-            SportsScreen(navController)
-        }
-        composable<MySportItemAppRoute> { navBackStackEntry ->
-            val appRoute = navBackStackEntry.toRoute<MySportItemAppRoute>()
-            ContentScreen(appRoute.label)
-        }
+        composable(NavigationItem.Home.route) { ContentScreen(NavigationItem.Home.route) }
+        composable(NavigationItem.Calendar.route) { ContentScreen(NavigationItem.Calendar.route) }
+        composable(NavigationItem.Profile.route) { ContentScreen(NavigationItem.Profile.route) }
+        composable(NavigationItem.MySports.route) { SportsScreen(navController) }
+        composable(SportsItem.Football.route) { ContentScreen(SportsItem.Football.route) }
+        composable(SportsItem.Hockey.route) { ContentScreen(SportsItem.Hockey.route) }
+        composable(SportsItem.Baseball.route) { ContentScreen(SportsItem.Baseball.route) }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun BottomNavPreview() {
+    BottomNavigationTheme {
+        MainScreen()
     }
 }
