@@ -22,8 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.bottomnavigation.SportsScreen
-import com.example.bottomnavigation.ui.theme.BottomNavigationTheme
+import com.example.mysports.AppRoute
+import com.example.mysports.ui.theme.MySportsTheme
 
 @Composable
 fun ContentScreen(route: String) {
@@ -41,18 +41,18 @@ fun SportsScreen(navController: NavHostController) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        SportButton(route = SportsItem.Football.route, navController)
+        SportButton(route = "Football", navController)
         Spacer(modifier = Modifier.height(12.dp))
-        SportButton(route = SportsItem.Hockey.route, navController)
+        SportButton(route = "Hockey", navController)
         Spacer(modifier = Modifier.height(12.dp))
-        SportButton(route = SportsItem.Baseball.route, navController)
+        SportButton(route = "Baseball", navController)
     }
 }
 
 @Composable
 fun SportButton(route: String, navController: NavHostController) {
     OutlinedButton(
-        onClick = { navController.navigate(route)},
+        onClick = { navController.navigate(AppRoute.MySportItemAppRoute(route))},
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp),
@@ -78,7 +78,7 @@ fun SportButton(route: String, navController: NavHostController) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewSportsScreen() {
-    BottomNavigationTheme {
+    MySportsTheme {
         SportsScreen(navController = NavHostController(LocalContext.current))
     }
 }

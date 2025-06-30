@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Bottom Navigation"
+rootProject.name = "My Sports"
 include(":app")
  
