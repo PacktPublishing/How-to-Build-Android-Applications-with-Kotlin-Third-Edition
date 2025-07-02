@@ -1,5 +1,7 @@
 package com.example.bottomnavigation
 
+import android.net.http.SslCertificate.restoreState
+import android.net.http.SslCertificate.saveState
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -49,7 +51,8 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainApp(navController: NavHostController = rememberNavController()) {
+fun MainApp() {
+    val navController: NavHostController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
@@ -72,13 +75,14 @@ fun MainApp(navController: NavHostController = rememberNavController()) {
             )
         },
         bottomBar = {
+
             NavigationBar {
                 bottomNavigationItems.forEach { item ->
 
-                    val selected = currentDestination?.hasRoute(item.route::class) == true
+                    val isSelected = currentDestination?.hasRoute(item.route::class) == true
 
                     NavigationBarItem(
-                        selected = selected,
+                        selected = isSelected ,
                         icon = {
                             BadgedBox(
                                 badge = {
@@ -88,14 +92,14 @@ fun MainApp(navController: NavHostController = rememberNavController()) {
                                 }
                             ) {
                                 Icon(
-                                    imageVector = if (selected) item.selectedIcon else item.unselectedIcon,
+                                    imageVector = if (isSelected ) item.selectedIcon else item.unselectedIcon,
                                     contentDescription = item.label
                                 )
                             }
                         },
                         label = { Text(item.label) },
                         onClick = {
-                            if (!selected) {
+                            if (!isSelected ) {
                                 navController.navigate(item.route) {
                                     launchSingleTop = true
                                     restoreState = true
@@ -123,3 +127,4 @@ fun MainApp(navController: NavHostController = rememberNavController()) {
         }
     }
 }
+

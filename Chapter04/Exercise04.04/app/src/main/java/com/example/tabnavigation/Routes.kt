@@ -2,7 +2,6 @@ package com.example.tabnavigation
 
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 sealed class Destination(val label: String,) {
     @Serializable
@@ -15,10 +14,10 @@ sealed class Destination(val label: String,) {
     data object Politics : Destination("Politics")
 
     @Serializable
-    data object WorldNews : Destination("World News")
+    data object Business : Destination("Business")
 
     @Serializable
-    data object Business : Destination("Business")
+    data object WorldNews : Destination("World News")
 
     @Serializable
     data object Sport : Destination("Sport")
@@ -31,8 +30,8 @@ sealed class TabNavigation(val label: String, val route: Destination) {
     data object TopStories : TabNavigation("Top Stories",  Destination.TopStories )
     data object UKNews : TabNavigation("UK News",  Destination.UKNews )
     data object Politics : TabNavigation("Politics",  Destination.Politics )
-    data object WorldNews : TabNavigation("World News",  Destination.WorldNews )
     data object Business : TabNavigation("Business",  Destination.Business )
+    data object WorldNews : TabNavigation("World News",  Destination.WorldNews )
     data object Sport : TabNavigation("Sport",  Destination.Sport )
     data object Other : TabNavigation("Other",  Destination.Other )
 }

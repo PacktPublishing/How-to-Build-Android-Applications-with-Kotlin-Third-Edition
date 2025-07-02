@@ -1,5 +1,7 @@
 package com.example.navigationdrawer
 
+import android.net.http.SslCertificate.restoreState
+import android.net.http.SslCertificate.saveState
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,6 +41,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.navigationdrawer.ui.theme.NavigationDrawerTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -54,9 +59,11 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainApp(navController: NavHostController = rememberNavController()) {
+fun MainApp() {
+    val navController: NavHostController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+
     val navigationDrawerItems = listOf(
         NavigationDrawer.Home,
         NavigationDrawer.Shopping,
@@ -64,7 +71,8 @@ fun MainApp(navController: NavHostController = rememberNavController()) {
         NavigationDrawer.Calendar,
         NavigationDrawer.Bin
     )
-    val drawerState = rememberDrawerState(initialValue = androidx.compose.material3.DrawerValue.Closed)
+    val drawerState =
+        rememberDrawerState(initialValue = androidx.compose.material3.DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
 
     ModalNavigationDrawer(
@@ -72,14 +80,15 @@ fun MainApp(navController: NavHostController = rememberNavController()) {
         drawerContent = {
             ModalDrawerSheet(
                 modifier = Modifier.width(256.dp)
-            )  {
-                Box(modifier = Modifier.width(256.dp),
-                    contentAlignment = Alignment.Center) {
+            ) {
+                Box(
+                    modifier = Modifier.width(256.dp),
+                    contentAlignment = Alignment.Center
+                ) {
                     Image(
                         modifier = Modifier.width(120.dp),
                         painter = painterResource(id = R.drawable.ic_launcher_background),
                         contentDescription = "Logo",
-
                         )
                     Image(
                         painter = painterResource(id = R.drawable.ic_launcher_foreground),
@@ -89,10 +98,17 @@ fun MainApp(navController: NavHostController = rememberNavController()) {
                 }
 
                 navigationDrawerItems.forEach { item ->
+                    val isSelected = currentDestination?.hasRoute(item.route::class) == true
+
                     NavigationDrawerItem(
-                        icon = { Icon(imageVector = item.selectedIcon, contentDescription = item.label) },
+                        icon = {
+                            Icon(
+                                imageVector = if (isSelected) item.selectedIcon else item.unselectedIcon,
+                                contentDescription = item.label
+                            )
+                        },
                         label = { Text(item.label) },
-                        selected = currentDestination?.hasRoute(item.route::class) == true,
+                        selected = isSelected,
                         onClick = {
                             navController.navigate(item.route) {
                                 launchSingleTop = true
@@ -110,37 +126,44 @@ fun MainApp(navController: NavHostController = rememberNavController()) {
             }
         }
     ) {
-        Scaffold(
-            topBar = {
-                CenterAlignedTopAppBar(
-                    title = { Text(stringResource(R.string.app_name)) },
-                    modifier = Modifier.statusBarsPadding(),
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceContainer
-                    ),
-                    navigationIcon = {
-                        IconButton(onClick = {
-                            coroutineScope.launch {
-                                drawerState.open()
-                            }
-                        }) {
-                            Icon(Icons.Default.Menu, contentDescription = "Menu")
+
+        NavigationDrawerHost(coroutineScope, drawerState, navController)
+    }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+fun NavigationDrawerHost(coroutineScope: CoroutineScope, drawerState: DrawerState, navController: NavHostController) {
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text(stringResource(R.string.app_name)) },
+                modifier = Modifier.statusBarsPadding(),
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainer
+                ),
+                navigationIcon = {
+                    IconButton(onClick = {
+                        coroutineScope.launch {
+                            drawerState.open()
                         }
+                    }) {
+                        Icon(Icons.Default.Menu, contentDescription = "Menu")
                     }
-                )
-            }
-        ) { innerPadding ->
-            NavHost(
-                navController = navController,
-                modifier = Modifier.padding(innerPadding),
-                startDestination = Destination.Home
-            ) {
-                composable<Destination.Home> { ContentScreen(Destination.Home.label) }
-                composable<Destination.Shopping> { ContentScreen(Destination.Shopping.label) }
-                composable<Destination.Favorites> { ContentScreen(Destination.Favorites.label) }
-                composable<Destination.Calendar> { ContentScreen(Destination.Calendar.label) }
-                composable<Destination.Bin> { ContentScreen(Destination.Bin.label) }
-            }
+                }
+            )
+        }
+    ) { innerPadding ->
+        NavHost(
+            navController = navController,
+            modifier = Modifier.padding(innerPadding),
+            startDestination = Destination.Home
+        ) {
+            composable<Destination.Home> { ContentScreen(Destination.Home.label) }
+            composable<Destination.Shopping> { ContentScreen(Destination.Shopping.label) }
+            composable<Destination.Favorites> { ContentScreen(Destination.Favorites.label) }
+            composable<Destination.Calendar> { ContentScreen(Destination.Calendar.label) }
+            composable<Destination.Bin> { ContentScreen(Destination.Bin.label) }
         }
     }
 }
