@@ -112,10 +112,7 @@ fun MainApp() {
                         onClick = {
                             navController.navigate(item.route) {
                                 launchSingleTop = true
-                                restoreState = true
-                                popUpTo(navController.graph.startDestinationId) {
-                                    saveState = true
-                                }
+                                popUpTo(navController.graph.startDestinationId)
                             }
                             coroutineScope.launch {
                                 drawerState.close()
