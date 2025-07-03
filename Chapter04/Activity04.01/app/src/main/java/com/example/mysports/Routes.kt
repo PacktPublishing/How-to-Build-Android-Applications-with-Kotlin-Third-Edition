@@ -1,4 +1,4 @@
-package com.example.bottomnavigation
+package com.example.mysports
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
@@ -10,53 +10,57 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.ui.graphics.vector.ImageVector
+import kotlinx.serialization.Serializable
 
 
 @Serializable
-sealed class AppDestination(val label: String) {
-    @Serializable
-    data object Home: AppDestination("Home")
+sealed class Destination(val label: String) {
 
     @Serializable
-    data object Calendar: AppDestination("Cart")
+    data object Home: Destination("Home")
 
     @Serializable
-    data object Profile: AppDestination("Profile")
+    data object Calendar: Destination("Calendar")
 
     @Serializable
-    data object MySports: AppDestination("MySports")
+    data object Profile: Destination("Profile")
 
+    @Serializable
+    data object MySports: Destination("Profile")
+
+    @Serializable
+    data class MySportItem(val name: String): Destination(name)
 }
 
-sealed class AppBottomNavigation(
+sealed class BottomNavigation(
     val label: String,
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
-    val route: AppDestination
+    val route: Destination
 ) {
-    data object Home : AppBottomNavigation(
+    data object Home : BottomNavigation(
         "Home",
         Icons.Filled.Home,
         Icons.Outlined.Home,
-        AppDestination.Home
+        Destination.Home
     )
-    data object Calendar : AppBottomNavigation(
+    data object Calendar : BottomNavigation(
         "Calendar",
         Icons.Filled.DateRange,
         Icons.Outlined.DateRange,
-        AppDestination.Calendar
+        Destination.Calendar
     )
-    data object Profile : AppBottomNavigation(
-        "Calendar",
+    data object Profile : BottomNavigation(
+        "Profile",
         Icons.Filled.Person,
         Icons.Outlined.Person,
-        AppDestination.Calendar
+        Destination.Profile
     )
-    data object MySports : AppBottomNavigation(
-        "Bin",
+    data object MySports : BottomNavigation(
+        "My Sports",
         Icons.Filled.Star,
         Icons.Outlined.Star,
-        AppDestination.MySports
+        Destination.MySports
     )
 }
 

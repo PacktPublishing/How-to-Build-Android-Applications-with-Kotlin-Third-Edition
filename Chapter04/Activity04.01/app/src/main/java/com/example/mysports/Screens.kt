@@ -1,4 +1,4 @@
-package com.example.bottomnavigation
+package com.example.mysports
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,14 +16,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.mysports.Destination
-import com.example.mysports.ui.theme.MySportsTheme
 
 @Composable
 fun ContentScreen(route: String) {
@@ -37,22 +33,20 @@ fun SportsScreen(navController: NavHostController) {
     Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
+        modifier = Modifier.padding(16.dp)
     ) {
-        SportButton(route = "Football", navController)
+        SportButton(navController, "Football")
         Spacer(modifier = Modifier.height(12.dp))
-        SportButton(route = "Hockey", navController)
+        SportButton(navController, "Hockey")
         Spacer(modifier = Modifier.height(12.dp))
-        SportButton(route = "Baseball", navController)
+        SportButton(navController, "Basketball")
     }
 }
 
 @Composable
-fun SportButton(route: String, navController: NavHostController) {
+fun SportButton(navController: NavHostController, name: String) {
     OutlinedButton(
-        onClick = { navController.navigate(Destination.MySportItemDestination(route))},
+        onClick = { navController.navigate(Destination.MySportItem(name))},
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp),
@@ -67,18 +61,10 @@ fun SportButton(route: String, navController: NavHostController) {
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 2.dp)
     ) {
         Text(
-            text = route,
+            text = name,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(vertical = 8.dp)
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewSportsScreen() {
-    MySportsTheme {
-        SportsScreen(navController = NavHostController(LocalContext.current))
     }
 }
