@@ -1,8 +1,8 @@
-package com.example.catagentprofile
+package com.example.weatherapp
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import coil.compose.AsyncImage
+import coil3.compose.AsyncImage
 
 @Composable
 fun LoadedImage(imageUrl: String, modifier: Modifier = Modifier) {
