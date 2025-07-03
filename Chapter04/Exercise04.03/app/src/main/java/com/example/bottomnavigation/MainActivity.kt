@@ -102,6 +102,7 @@ fun MainApp() {
                             if (!isSelected ) {
                                 navController.navigate(item.route) {
                                     launchSingleTop = true
+                                    restoreState = true
                                     popUpTo(navController.graph.startDestinationId) {
                                         saveState = true
                                     }
