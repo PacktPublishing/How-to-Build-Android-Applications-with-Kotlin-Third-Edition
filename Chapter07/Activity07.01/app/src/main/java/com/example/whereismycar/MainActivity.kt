@@ -53,6 +53,7 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
+import androidx.core.graphics.createBitmap
 
 class MainActivity : ComponentActivity() {
     private val fusedLocationClient by lazy {
@@ -236,7 +237,7 @@ class MainActivity : ComponentActivity() {
         ) == PackageManager.PERMISSION_GRANTED
 
     private fun getBitmapDescriptorFromVector(
-        @DrawableRes vectorDrawableResourceId: Int
+        @DrawableRes vectorDrawableResourceId: Int,
     ): BitmapDescriptor? = ContextCompat.getDrawable(
         this,
         vectorDrawableResourceId
@@ -249,11 +250,7 @@ class MainActivity : ComponentActivity() {
         )
         val drawableWithTint = DrawableCompat.wrap(vectorDrawable)
         DrawableCompat.setTint(drawableWithTint, Color.DKGRAY)
-        val bitmap = Bitmap.createBitmap(
-            vectorDrawable.intrinsicWidth,
-            vectorDrawable.intrinsicHeight,
-            Bitmap.Config.ARGB_8888
-        )
+        val bitmap = createBitmap(vectorDrawable.intrinsicWidth, vectorDrawable.intrinsicHeight)
         val canvas = Canvas(bitmap)
         drawableWithTint.draw(canvas)
         BitmapDescriptorFactory.fromBitmap(bitmap)
