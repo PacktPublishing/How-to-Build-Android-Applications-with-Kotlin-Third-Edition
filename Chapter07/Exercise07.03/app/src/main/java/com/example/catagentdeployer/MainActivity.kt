@@ -222,7 +222,7 @@ class MainActivity : ComponentActivity() {
         ) == PackageManager.PERMISSION_GRANTED
 
     private fun getBitmapDescriptorFromVector(
-        @DrawableRes vectorDrawableResourceId: Int,
+        @DrawableRes vectorDrawableResourceId: Int
     ): BitmapDescriptor? = ContextCompat.getDrawable(
         this,
         vectorDrawableResourceId
