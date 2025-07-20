@@ -1,4 +1,4 @@
-package com.example.jetpackcompose.myapplication.ui.theme
+package com.example.myapplication.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.graphics.Color
@@ -16,7 +16,7 @@ val Typography = Typography(
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp,
         color = Color.Red
-    ),
+    )
     /* Other default text styles to override
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,
