@@ -19,8 +19,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.intentsintroduction.MainActivity.Companion.FULL_NAME_KEY
 import com.example.intentsintroduction.ui.theme.IntentsIntroductionTheme
+import com.example.intentsintroduction.MainActivity.Companion
+.FULL_NAME_KEY
 
 
 class WelcomeActivity : ComponentActivity() {
@@ -35,27 +36,32 @@ class WelcomeActivity : ComponentActivity() {
     }
 }
 
-@Composable
-private fun WelcomeScreen(intent: Intent) {
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize()
-        ) {
-            if (intent != null) {
-                val fullName = intent.getStringExtra(FULL_NAME_KEY) ?: ""
-                val welcomeText = stringResource(R.string.welcome_text, fullName)
-                Text(
-                    textAlign = TextAlign.Center,
-                    text = welcomeText,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(12.dp)
-                )
-            }
-        }
+@Composable private fun WelcomeScreen(intent: Intent) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize()
+    ) { innerPadding -> Box( contentAlignment =
+        Alignment.Center,
+        modifier = Modifier
+            .padding(innerPadding)
+            .fillMaxSize()
+    ) {
+        val fullName =
+            intent.getStringExtra(
+                FULL_NAME_KEY
+            ) ?: ""
+        val welcomeText =
+        stringResource(
+            R.string.welcome_text,
+            fullName
+        )
+        Text(
+            textAlign = TextAlign.Center,
+            text = welcomeText,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(12.dp)
+        )
+    }
     }
 }
 
