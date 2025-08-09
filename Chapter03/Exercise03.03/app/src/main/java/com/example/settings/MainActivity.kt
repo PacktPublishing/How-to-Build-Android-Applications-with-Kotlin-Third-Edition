@@ -46,159 +46,48 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SettingsTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    SettingsContainer(modifier = Modifier.padding(innerPadding))
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
+                    SettingsContainer(
+                        modifier = Modifier.padding(innerPadding)
+                    )
                 }
+
             }
         }
     }
 }
 
 @Composable
-fun SettingsContainer(modifier: Modifier = Modifier) {
+fun SettingsContainer(modifier: Modifier) {
     Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        horizontalAlignment =
+            Alignment.CenterHorizontally,
     ) {
-        // Header
+
         SettingsHeader()
-        // Image
+
         SettingsImage()
-        // Consent cookies
+
         SettingsCheckbox()
-        // Stream over wifi
+
         SettingsSwitch()
-        // App Brightness
+
         SettingsSlider()
-        // Radio Buttons
-        SettingsRadioButton()
-        // Sign Out Button
-        AlertDialog()
+
+        SettingsRadioButtons()
+
+        SettingsAlertDialog()
+
     }
 }
 
-@Preview
-@Composable
-fun SettingsContainerPreview() {
-    SettingsContainer()
-}
 
 @Composable
-fun SettingsHeader() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 14.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = stringResource(id = R.string.app_name),
-            style = HeaderTextStyle,
-            modifier = Modifier.padding(end = 10.dp)
-        )
-        Icon(
-            imageVector = Icons.Default.Settings,
-            contentDescription = stringResource(id = R.string.settings_icon_description),
-        )
-    }
-}
-
-@Composable
-fun SettingsImage() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp).padding(start = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(
-            text = stringResource(id = R.string.settings_profile_image),
-            fontSize = 18.sp,
-        )
-        Image(
-            modifier = Modifier.padding(end = 10.dp).height(34.dp)
-                .clickable { /* Handle changing the profile image */ },
-            painter = painterResource(id = R.drawable.sunflower),
-            contentDescription = stringResource(id = R.string.settings_profile_image),
-
-        )
-    }
-}
-
-@Composable
-fun SettingsCheckbox() {
-    var isChecked by remember { mutableStateOf(false) }
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp).padding(start = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(
-            text = stringResource(id = R.string.settings_consent),
-            fontSize = 18.sp,
-        )
-        Checkbox(
-            checked = isChecked,
-            onCheckedChange = { isChecked = it },
-        )
-    }
-}
-
-@Composable
-fun SettingsSwitch() {
-    var isChecked by remember { mutableStateOf(false) }
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp).padding(start = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(
-            text = stringResource(id = R.string.settings_mobile_data),
-            fontSize = 18.sp,
-        )
-        Switch(
-            modifier = Modifier.padding(end = 10.dp),
-            checked = isChecked,
-            onCheckedChange = { isChecked = it },
-        )
-    }
-}
-
-@Composable
-fun SettingsSlider() {
-    var sliderValue by remember { mutableStateOf(0f) }
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp).padding(start = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(
-            modifier = Modifier.padding(end = 16.dp),
-            text = stringResource(id = R.string.settings_text_size),
-            fontSize = 18.sp,
-        )
-        Slider(
-            value = sliderValue,
-            onValueChange = { sliderValue = it },
-            steps = 2
-        )
-    }
-}
-
-@Composable
-fun AlertDialog() {
+fun SettingsAlertDialog() {
     var showDialog by remember { mutableStateOf(false) }
 
     Button(onClick = { showDialog = true }) {
@@ -224,26 +113,172 @@ fun AlertDialog() {
     }
 }
 
+
 @Composable
-fun SettingsRadioButton() {
-    var selectedColor by remember { mutableStateOf("Red") }
+fun SettingsRadioButtons() {
+    var selectedPaymentMethod by remember { mutableStateOf("PayPal") }
 
     Column(modifier = Modifier
         .fillMaxWidth()
         .padding(16.dp)) {
         Text(text = stringResource(id = R.string.payment_method), modifier = Modifier.padding(bottom = 8.dp))
-        listOf("Paypal", "Credit Card", "Bak Transfer").forEach { color ->
+        listOf("PayPal", "Credit Card", "Bank Transfer").forEach { paymentMethod ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(vertical = 4.dp)
             ) {
                 RadioButton(
-                    selected = (color == selectedColor),
-                    onClick = { selectedColor = color },
+                    selected = (selectedPaymentMethod == paymentMethod),
+                    onClick = { selectedPaymentMethod = paymentMethod },
                     colors = RadioButtonDefaults.colors()
                 )
-                Text(text = color, modifier = Modifier.padding(start = 8.dp))
+                Text(text = paymentMethod, modifier = Modifier.padding(start = 8.dp))
             }
         }
+    }
+}
+
+
+
+@Composable
+fun SettingsSlider() {
+    var sliderValue by remember { mutableStateOf(0f) }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .padding(start = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement =
+            Arrangement.SpaceBetween
+    ) {
+        Text(
+            modifier = Modifier.padding(end = 16.dp),
+            text = stringResource(
+                id = R.string.settings_text_size),
+            fontSize = 18.sp,
+        )
+        Slider(
+            value = sliderValue,
+            onValueChange = { sliderValue = it },
+            steps = 2
+        )
+    }
+}
+
+
+
+@Composable
+fun SettingsSwitch() {
+    var isChecked by remember { mutableStateOf(false) }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .padding(start = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement =
+            Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = stringResource(
+                id = R.string.settings_mobile_data),
+            fontSize = 18.sp,
+        )
+        Switch(
+            modifier = Modifier.padding(end = 10.dp),
+            checked = isChecked,
+            onCheckedChange = { isChecked = it },
+        )
+    }
+}
+
+
+@Composable
+fun SettingsCheckbox() {
+    var isChecked by remember { mutableStateOf(false) }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .padding(start = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement =
+            Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = stringResource(
+                id = R.string.settings_consent),
+            fontSize = 18.sp,
+        )
+        Checkbox(
+            checked = isChecked,
+            onCheckedChange = { isChecked = it },
+        )
+    }
+}
+
+
+
+
+@Composable
+fun SettingsImage() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .padding(start = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement =
+            Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = stringResource(
+                id = R.string.settings_profile_image),
+            fontSize = 18.sp,
+        )
+        Image(
+            modifier = Modifier.padding(
+                end = 10.dp).height(34.dp)
+                .clickable {
+                    /* Handle changing the profile image */
+                },
+            painter = painterResource(
+                id = R.drawable.sunflower),
+            contentDescription = stringResource(
+                id = R.string.settings_profile_image),
+
+            )
+    }
+}
+
+@Preview
+@Composable
+fun SettingsContainerPreview() {
+    SettingsContainer(modifier = Modifier)
+}
+
+@Composable
+fun SettingsHeader() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 14.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = stringResource(
+                id = R.string.app_name),
+            style = HeaderTextStyle,
+            modifier = Modifier.padding(end = 10.dp)
+        )
+        Icon(
+            imageVector = Icons.Default.Settings,
+            contentDescription = stringResource(
+                id = R.string.settings_icon_description
+            ),
+        )
     }
 }
