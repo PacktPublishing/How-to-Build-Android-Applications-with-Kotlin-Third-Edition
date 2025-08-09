@@ -47,7 +47,6 @@ private fun MainScreen() {
 
         val welcomeMessage = stringResource(id = R.string.welcome_to_the_app)
         val enterNameErrorMessage = stringResource(id = R.string.please_enter_a_name)
-        val context = LocalContext.current
 
         Column(
             modifier = Modifier
@@ -57,29 +56,48 @@ private fun MainScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = firstName,
                 onValueChange = { firstName = it },
-                label = { Text(text = stringResource(id = R.string.first_name)) },
+                label = {
+                    Text(
+                        text = stringResource(
+                            id = R.string.first_name
+                        )
+                    )
+                },
             )
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = lastName,
                 onValueChange = { lastName = it },
-                label = { Text(text = stringResource(id = R.string.last_name)) }
+                label = {
+                    Text(
+                        text = stringResource(
+                            id = R.string.last_name
+                        )
+                    )
+                }
             )
-            Button(
-                modifier = Modifier.fillMaxWidth(),
+            val context = LocalContext.current
+            Button(modifier = Modifier.fillMaxWidth(),
                 onClick = {
-                    if (firstName.isNotBlank() && lastName.isNotBlank())
+                    if (
+                        firstName.isNotBlank() &&
+                        lastName.isNotBlank())
                         fullName = "$firstName $lastName"
                     else {
-                        fullName = ""
-                        val toast = Toast.makeText(context, enterNameErrorMessage, Toast.LENGTH_LONG)
-                        toast.setGravity(Gravity.CENTER, 0, 0)
-                        toast.show()
-                    }
+                    fullName = ""
+                    val toast = Toast.makeText(
+                        context,
+                        enterNameErrorMessage,
+                        Toast.LENGTH_LONG
+                    )
+                    toast.setGravity(Gravity.CENTER, 0, 0)
+                    toast.show()
+                }
                 }
             ) {
                 Text("Enter")
