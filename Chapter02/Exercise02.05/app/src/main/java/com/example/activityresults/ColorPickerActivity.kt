@@ -24,7 +24,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.activityresults.MainActivity.Companion.RAINBOW_COLOR
+import com.example.activityresults.MainActivity.Companion.RAINBOW_COLOR_NAME
 import com.example.activityresults.ui.theme.ActivityResultsTheme
+import com.example.activityresults.ui.theme.indigo
+import com.example.activityresults.ui.theme.orange
+import com.example.activityresults.ui.theme.violet
+import com.example.activityresults.ui.theme.yellow
 
 class ColorPickerActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +43,7 @@ class ColorPickerActivity : ComponentActivity() {
         }
     }
 
-    @Composable
-    private fun ColorPickerScreen() {
+    @Composable private fun ColorPickerScreen() {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             Column(
                 verticalArrangement = Arrangement.Top,
@@ -46,11 +51,9 @@ class ColorPickerActivity : ComponentActivity() {
                     .fillMaxSize()
                     .padding(innerPadding),
             ) {
-
                 val clickHandler = { color: Long, colorName: String ->
                     setRainbowColor(color, colorName)
                 }
-
                 Text(
                     stringResource(id = R.string.header_text_picker),
                     textAlign = TextAlign.Center,
@@ -59,13 +62,18 @@ class ColorPickerActivity : ComponentActivity() {
                         .padding(20.dp)
                         .fillMaxWidth()
                 )
-                RainbowColor(red, getString(R.string.red), clickHandler)
-                RainbowColor(orange, getString(R.string.orange), clickHandler)
-                RainbowColor(yellow, getString(R.string.yellow), clickHandler)
-                RainbowColor(green, getString(R.string.green), clickHandler)
-                RainbowColor(blue, getString(R.string.blue), clickHandler)
-                RainbowColor(indigo, getString(R.string.indigo), clickHandler)
-                RainbowColor(violet, getString(R.string.violet), clickHandler)
+                RainbowColor(RED, getString(R.string.red), clickHandler)
+                RainbowColor(ORANGE, getString(R.string.orange),clickHandler)
+                RainbowColor(YELLOW, getString(R.string.yellow),
+                    clickHandler)
+                RainbowColor(GREEN, getString(R.string.green),
+                    clickHandler)
+                RainbowColor(BLUE, getString(R.string.blue),
+                    clickHandler)
+                RainbowColor(INDIGO, getString(R.string.indigo),
+                    clickHandler)
+                RainbowColor(VIOLET, getString(R.string.violet),
+                    clickHandler)
                 Text(
                     stringResource(id = R.string.footer_text_picker),
                     textAlign = TextAlign.Center,
@@ -79,14 +87,13 @@ class ColorPickerActivity : ComponentActivity() {
     }
 
     companion object {
-        private const val red = 0xFFFF0000L
-        private const val orange = 0xFFFFA500L
-        private const val yellow = 0xFFFFEE00L
-        private const val green = 0xFF00FF00L
-        private const val blue = 0xFF0000FFL
-        private const val indigo = 0xFF4B0082L
-        private const val violet = 0xFF8A2BE2L
-
+        const val RED = 0xFFFF0000L
+        const val ORANGE = 0xFFFFA500L
+        const val YELLOW = 0xFFFFEE00L
+        const val GREEN = 0xFF00FF00L
+        const val BLUE = 0xFF0000FFL
+        const val INDIGO = 0xFF4B0082L
+        const val VIOLET = 0xFF8A2BE2L
     }
 
     private fun setRainbowColor(color: Long, colorName: String) {
@@ -100,7 +107,8 @@ class ColorPickerActivity : ComponentActivity() {
 }
 
 @Composable
-fun RainbowColor(color: Long, colorName: String, onButtonClick: (Long, String) -> Unit) {
+fun RainbowColor(color: Long, colorName: String, onButtonClick:
+    (Long, String) -> Unit) {
     Button(
         onClick = { onButtonClick(color, colorName) },
         colors = ButtonDefaults.buttonColors(
@@ -115,16 +123,14 @@ fun RainbowColor(color: Long, colorName: String, onButtonClick: (Long, String) -
         Text(
             text = colorName,
             color = Color.White,
-            fontSize = 22.sp,
-            textAlign = TextAlign.Center,
+            fontSize = 22.sp,textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold
         )
     }
 }
-
-
 @Preview
 @Composable
 fun RainbowColorPreview() {
     RainbowColor(0xFF00FF00, "GREEN") { color, name -> }
 }
+
