@@ -46,10 +46,6 @@ fun ColorCreatorScreen() {
 
     val context = LocalContext.current
 
-    // Function to filter input to only allow hexadecimal characters
-    fun filterHexInput(input: String): String {
-        return input.filter { it in '0'..'9' || it in 'A'..'F' || it in 'a'..'f' }.take(2)
-    }
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
         Column(
@@ -107,7 +103,10 @@ fun ColorCreatorScreen() {
 }
 
 fun isValidHexInput(input: String): Boolean {
-    return input.filter { it in '0'..'9' || it in 'A'..'F' || it in 'a'..'f' }.length == 2
+    return input.filter {
+        it in '0'..'9' ||
+        it in 'A'..'F' ||
+        it in 'a'..'f' }.length == 2
 }
 
 @Preview(showBackground = true)
