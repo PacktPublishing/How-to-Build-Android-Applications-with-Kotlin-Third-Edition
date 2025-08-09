@@ -4,149 +4,265 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.example.dashboard.ui.theme.DashboardTheme
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.dashboard.ui.theme.DashboardTheme
+
+const val TOTAL_SALES = "Total Sales"
+const val ACTIVE_USERS = "Active Users"
+const val CONVERSION_RATE = "Conversion Rate"
+const val REVENUE_GROWTH = "Revenue Growth"
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+
+            var selectedItem by remember {mutableStateOf("None") }
+
             DashboardTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Dashboard(modifier = Modifier.padding(innerPadding))
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize().padding(innerPadding),
+                        verticalArrangement = Arrangement.Top,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            "Business Dashboard",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 22.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
+                        )
+
+                        Row(
+                            horizontalArrangement = Arrangement.SpaceEvenly,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            DashboardTile(TOTAL_SALES, selectedItem) { selectedItem =
+                                TOTAL_SALES }
+                            DashboardTile(ACTIVE_USERS, selectedItem) {
+                                selectedItem = ACTIVE_USERS
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(14.dp))
+                        Row(
+                            horizontalArrangement = Arrangement.SpaceEvenly,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            DashboardTile(CONVERSION_RATE, selectedItem) {
+                                selectedItem = CONVERSION_RATE
+                            }
+                            DashboardTile(REVENUE_GROWTH, selectedItem) {
+                                selectedItem = REVENUE_GROWTH
+                            }
+                        }
+                        Surface(
+                            shape = RoundedCornerShape(12.dp),
+                            color = Color.LightGray,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(34.dp)
+                                .height(150.dp)
+                        ) {
+                            Box(contentAlignment = Alignment.Center) {
+                                DetailedStatistics(
+                                    selectedItem = selectedItem
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Dashboard(modifier: Modifier) {
-    var selectedItem by remember { mutableStateOf("None") }
-    var selectedTab by remember { mutableStateOf(0) }
-
-    Scaffold(modifier = modifier,
-        topBar = {
-            TopAppBar(
-                title = { Text("Dashboard") }
-            )
-        },
-        bottomBar = {
-            NavigationBar {
-                NavigationBarItem(
-                    icon = { Icon(Icons.Filled.Home, contentDescription = "Home") },
-                    label = { Text("Home") },
-                    selected = selectedTab == 0,
-                    onClick = { selectedTab = 0 }
-                )
-                NavigationBarItem(
-                    icon = { Icon(Icons.Filled.Settings, contentDescription = "Settings") },
-                    label = { Text("Settings") },
-                    selected = selectedTab == 1,
-                    onClick = { selectedTab = 1 }
-                )
-            }
-        },
-        content = { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .fillMaxSize()
-                    .padding(16.dp)
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    DashboardBox("Stat 1", "100", selectedItem) { selectedItem = "Stat 1: 100" }
-                    DashboardBox("Stat 2", "200", selectedItem) { selectedItem = "Stat 2: 200" }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                Row(
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    DashboardBox("Stat 3", "300", selectedItem) { selectedItem = "Stat 3: 300" }
-                    DashboardBox("Stat 4", "400", selectedItem) { selectedItem = "Stat 4: 400" }
-                }
-                Spacer(modifier = Modifier.height(24.dp))
-                Surface(
-                    shape = RoundedCornerShape(12.dp),
-                    color = Color.LightGray,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                        .height(100.dp)
-                ) {
-                    Box(contentAlignment = Alignment.Center) {
-                        Text(text = "Selected Item: $selectedItem", fontSize = 18.sp)
-                    }
-                }
-            }
-        }
-    )
-}
-
-@Composable
-fun DashboardBox(title: String, stat: String, selectedItem: String, onClick: () -> Unit) {
+fun DashboardTile(
+    title: String,
+    selectedItem: String,
+    onClick: () -> Unit
+) {
     Surface(
         shape = RoundedCornerShape(12.dp),
         shadowElevation = 4.dp,
-        color = if (selectedItem.contains(title)) Color(0xFFBBDEFB) else Color.White,
+        color = if (selectedItem == title)
+            Color(0xFFBBDEFB) else Color.White,
         modifier = Modifier
             .size(150.dp)
             .clickable { onClick() }
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(16.dp)
+            horizontalAlignment =
+                Alignment.CenterHorizontally,
+            modifier = Modifier.padding(8.dp)
         ) {
-            Text(text = title, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = stat, fontSize = 24.sp, color = Color.Gray)
+            Text(
+                text = title,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun DashboardPreview() {
-    Dashboard(modifier = Modifier.padding(20.dp))
-}
+fun DetailedStatistics(selectedItem: String) {
+    when (selectedItem) {
+        TOTAL_SALES -> {
+            Column(
+                horizontalAlignment =
+                    Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Total Sales Breakdown",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+                Spacer(
+                    modifier = Modifier
+                        .height(8.dp)
+                )
+                Text(
+                    text = "Online Sales: $8,000",
+                    fontSize = 16.sp
+                )
+                Text(
+                    text = "In-store Sales: $4,000",
+                    fontSize = 16.sp
+                )
+                Text(
+                    text =
+                        "Year-over-Year Growth: +10%",
+                    fontSize = 16.sp
+                )
+            }
+        }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+        ACTIVE_USERS -> {
+            Column(
+                horizontalAlignment =
+                    Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Active Users Breakdown",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+                Spacer(
+                    modifier = Modifier
+                        .height(8.dp)
+                )
+                Text(
+                    text =
+                        "Daily Active Users: 1,500",
+                    fontSize = 16.sp
+                )
+                Text(
+                    text =
+                        "Monthly Active Users: 2,400",
+                    fontSize = 16.sp
+                )
+                Text(
+                    text = "User Retention: 75%",
+                    fontSize = 16.sp
+                )
+            }
+        }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    DashboardTheme {
-        Greeting("Android")
+        CONVERSION_RATE -> {
+            Column(
+                horizontalAlignment =
+                    Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Conversion Rate Details",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+                Spacer(
+                    modifier = Modifier
+                        .height(8.dp)
+                )
+                Text(
+                    text = "Website Conversion: 4.8%",
+                    fontSize = 16.sp
+                )
+                Text(
+                    text = "App Conversion: 6.2%",
+                    fontSize = 16.sp
+                )
+                Text(
+                    text = "Overall Conversion: 5.4%",
+                    fontSize = 16.sp
+                )
+            }
+        }
+
+        REVENUE_GROWTH -> {
+            Column(
+                horizontalAlignment =
+                    Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Revenue Growth Overview",
+                fontWeight = FontWeight.Bold,
+                fontSize = 18.sp
+                )
+                Spacer(
+                    modifier = Modifier
+                        .height(8.dp)
+                )
+                Text(
+                    text = "Last Month: +7.8%",
+                fontSize = 16.sp
+                )
+                Text(
+                    text = "Last Quarter: +8.2%",
+                fontSize = 16.sp
+                )
+                Text(
+                    text = "Year-to-Date: +15.5%",
+                fontSize = 16.sp
+                )
+            }
+        }
+
+        else -> {
+            Text(
+                text =
+                "Select an item to view details",
+            fontSize = 16.sp
+            )
+        }
     }
 }
