@@ -39,6 +39,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             SaveAndRestoreTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+
                     Column(
                         verticalArrangement = Arrangement.spacedBy(10.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -46,17 +47,26 @@ class MainActivity : ComponentActivity() {
                             .padding(innerPadding)
                             .fillMaxWidth(),
                     ) {
-                        Button(onClick = { randomNumber = generateRandomNumber() }) {
+                        Button(
+                            onClick = {
+                                randomNumber = generateRandomNumber()
+                            }
+                        ) {
                             Text(
-                                stringResource(id = R.string.generate_random_number),
+                                stringResource(id = R.string.generate_random_number
+                                ),
                                 fontSize = 18.sp
                             )
                         }
                         Text(
-                            stringResource(id = R.string.random_number_message, randomNumber),
+                            stringResource(
+                                id = R.string.random_number_message,
+                                randomNumber
+                            ),
                             fontSize = 18.sp
                         )
                     }
+
                 }
             }
         }
