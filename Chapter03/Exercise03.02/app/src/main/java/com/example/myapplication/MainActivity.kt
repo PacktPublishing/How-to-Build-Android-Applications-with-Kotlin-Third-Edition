@@ -13,10 +13,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -42,7 +45,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(modifier: Modifier) {
-    var counter = remember { mutableStateOf(0) }
+    var counter by remember { mutableStateOf(0) }
     Column(
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -54,30 +57,30 @@ fun MainScreen(modifier: Modifier) {
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Text(
-            text = counter.value.toString(),
+            text = counter.toString(),
             fontSize = 54.sp,
             fontWeight = FontWeight.Bold,
         )
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier.fillMaxWidth()
-        )
-        {
+        ) {
             Button(
-                onClick = { counter.value++ }) {
-                Text(
-                    text = stringResource(id = R.string.plus),
-                    fontSize = 44.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(horizontal = 8.dp),
-                )
+                onClick = { counter++ }
+            ) {Text(
+                text = stringResource(id = R.string.plus),
+                fontSize = 44.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(horizontal = 8.dp),
+            )
             }
             Button(
                 onClick = {
-                    if (counter.value > 0) {
-                        counter.value--
+                    if (counter > 0) {
+                        counter--
                     }
-                }) {
+                }
+            ) {
                 Text(
                     text = stringResource(id = R.string.minus),
                     fontSize = 44.sp,
