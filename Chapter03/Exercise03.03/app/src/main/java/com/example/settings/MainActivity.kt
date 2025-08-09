@@ -60,14 +60,15 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun SettingsContainer(modifier: Modifier) {
+fun SettingsContainer(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment =
             Alignment.CenterHorizontally,
+        modifier = modifier
     ) {
 
+        // Header
         SettingsHeader()
 
         SettingsImage()
@@ -81,119 +82,69 @@ fun SettingsContainer(modifier: Modifier) {
         SettingsRadioButtons()
 
         SettingsAlertDialog()
-
     }
 }
 
-
 @Composable
-fun SettingsAlertDialog() {
-    var showDialog by remember { mutableStateOf(false) }
-
-    Button(onClick = { showDialog = true }) {
-        Text(text = stringResource(id = R.string.sign_out))
-    }
-
-    if (showDialog) {
-        AlertDialog(
-            onDismissRequest = { showDialog = false },
-            title = { Text(text = stringResource(id = R.string.alert_title)) },
-            text = { Text(text = stringResource(id = R.string.alert_message)) },
-            confirmButton = {
-                Button(onClick = { showDialog = false }) {
-                    Text(text = stringResource(id = R.string.ok))
-                }
-            },
-            dismissButton = {
-                Button(onClick = { showDialog = false }) {
-                    Text(text = stringResource(id = R.string.cancel))
-                }
-            }
+fun SettingsHeader() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 14.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = stringResource(
+                id = R.string.app_name
+            ),
+            style = HeaderTextStyle,
+            modifier = Modifier.padding(end = 10.dp)
+        )
+        Icon(
+            imageVector = Icons.Default.Settings,
+            contentDescription = stringResource(
+                id = R.string.settings_icon_description
+            ),
         )
     }
 }
 
-
 @Composable
-fun SettingsRadioButtons() {
-    var selectedPaymentMethod by remember { mutableStateOf("PayPal") }
-
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .padding(16.dp)) {
-        Text(text = stringResource(id = R.string.payment_method), modifier = Modifier.padding(bottom = 8.dp))
-        listOf("PayPal", "Credit Card", "Bank Transfer").forEach { paymentMethod ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(vertical = 4.dp)
-            ) {
-                RadioButton(
-                    selected = (selectedPaymentMethod == paymentMethod),
-                    onClick = { selectedPaymentMethod = paymentMethod },
-                    colors = RadioButtonDefaults.colors()
+fun SettingsImage() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .padding(start = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement =
+            Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = stringResource(
+                id = R.string.settings_profile_image
+            ),
+            fontSize = 18.sp,
+        )
+        Image(
+            modifier = Modifier
+                .padding(
+                    end = 10.dp
                 )
-                Text(text = paymentMethod, modifier = Modifier.padding(start = 8.dp))
-            }
-        }
-    }
-}
-
-
-
-@Composable
-fun SettingsSlider() {
-    var sliderValue by remember { mutableStateOf(0f) }
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
-            .padding(start = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement =
-            Arrangement.SpaceBetween
-    ) {
-        Text(
-            modifier = Modifier.padding(end = 16.dp),
-            text = stringResource(
-                id = R.string.settings_text_size),
-            fontSize = 18.sp,
-        )
-        Slider(
-            value = sliderValue,
-            onValueChange = { sliderValue = it },
-            steps = 2
+                .height(34.dp)
+                .clickable {
+/* Handle changing the profile image */
+                },
+            painter = painterResource(
+                id = R.drawable.sunflower
+            ),
+            contentDescription = stringResource(
+                id = R.string.settings_profile_image
+            ),
         )
     }
 }
-
-
-
-@Composable
-fun SettingsSwitch() {
-    var isChecked by remember { mutableStateOf(false) }
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
-            .padding(start = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement =
-            Arrangement.SpaceBetween
-    ) {
-        Text(
-            text = stringResource(
-                id = R.string.settings_mobile_data),
-            fontSize = 18.sp,
-        )
-        Switch(
-            modifier = Modifier.padding(end = 10.dp),
-            checked = isChecked,
-            onCheckedChange = { isChecked = it },
-        )
-    }
-}
-
 
 @Composable
 fun SettingsCheckbox() {
@@ -209,7 +160,8 @@ fun SettingsCheckbox() {
     ) {
         Text(
             text = stringResource(
-                id = R.string.settings_consent),
+                id = R.string.settings_consent
+            ),
             fontSize = 18.sp,
         )
         Checkbox(
@@ -219,11 +171,9 @@ fun SettingsCheckbox() {
     }
 }
 
-
-
-
 @Composable
-fun SettingsImage() {
+fun SettingsSwitch() {
+    var isChecked by remember { mutableStateOf(false) }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -235,50 +185,112 @@ fun SettingsImage() {
     ) {
         Text(
             text = stringResource(
-                id = R.string.settings_profile_image),
+                id = R.string.settings_mobile_data
+            ),
             fontSize = 18.sp,
         )
-        Image(
-            modifier = Modifier.padding(
-                end = 10.dp).height(34.dp)
-                .clickable {
-                    /* Handle changing the profile image */
-                },
-            painter = painterResource(
-                id = R.drawable.sunflower),
-            contentDescription = stringResource(
-                id = R.string.settings_profile_image),
+        Switch(
+            modifier = Modifier.padding(end = 10.dp),
+            checked = isChecked,
+            onCheckedChange = { isChecked = it },
+        )
+    }
+}
 
-            )
+@Composable
+fun SettingsRadioButtons() {
+    var selectedPaymentMethod by remember {
+        mutableStateOf("PayPal")
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        Text(
+            text = stringResource(id = R.string.payment_method),
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        listOf("PayPal", "Credit Card", "Bank Transfer").forEach { paymentMethod ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(vertical = 4.dp)
+            ) {
+                RadioButton(
+                    selected = (selectedPaymentMethod ==
+                            paymentMethod),
+                    onClick = {
+                        selectedPaymentMethod =
+                            paymentMethod
+                    },
+                    colors = RadioButtonDefaults.colors()
+                )
+                Text(
+                    text = paymentMethod, modifier =
+                        Modifier.padding(start = 8.dp)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun SettingsSlider() {
+    var sliderValue by remember { mutableStateOf(0f) }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .padding(start = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement =
+            Arrangement.SpaceBetween
+    ) {
+        Text(
+            modifier = Modifier.padding(end = 16.dp),
+            text = stringResource(
+                id = R.string.settings_text_size
+            ),
+            fontSize = 18.sp,
+        )
+        Slider(
+            value = sliderValue,
+            onValueChange = { sliderValue = it },
+            steps = 2
+        )
+    }
+}
+
+@Composable fun SettingsAlertDialog() {
+    var showDialog by remember { mutableStateOf(false) }
+    Button(onClick = { showDialog = true }) {
+        Text(text = stringResource(id = R.string.sign_out))
+    }
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text(text = stringResource(id =
+                R.string.alert_title)) },
+            text = { Text(text = stringResource(id =
+                R.string.alert_message)) },
+            confirmButton = {
+                Button(onClick = { showDialog = false }) {
+                    Text(text = stringResource(id = R.string.ok))
+                }
+            },
+            dismissButton = {
+                Button(onClick = { showDialog = false }) {
+                    Text(text = stringResource(id =
+                        R.string.cancel))
+                }
+            }
+        )
     }
 }
 
 @Preview
 @Composable
 fun SettingsContainerPreview() {
-    SettingsContainer(modifier = Modifier)
+    SettingsContainer()
 }
 
-@Composable
-fun SettingsHeader() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 14.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = stringResource(
-                id = R.string.app_name),
-            style = HeaderTextStyle,
-            modifier = Modifier.padding(end = 10.dp)
-        )
-        Icon(
-            imageVector = Icons.Default.Settings,
-            contentDescription = stringResource(
-                id = R.string.settings_icon_description
-            ),
-        )
-    }
-}
