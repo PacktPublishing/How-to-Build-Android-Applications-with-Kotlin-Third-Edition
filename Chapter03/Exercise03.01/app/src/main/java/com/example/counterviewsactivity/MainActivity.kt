@@ -24,9 +24,15 @@ class MainActivity : AppCompatActivity() {
 
         var counter = 0
         val mainView = findViewById<ConstraintLayout>(R.id.main)
-        val counterValue = mainView.findViewById<TextView>(R.id.counter_value)
-        val plusButton = mainView.findViewById<Button>(R.id.plus)
-        val minusButton = mainView.findViewById<Button>(R.id.minus)
+        val counterValue = mainView.findViewById<TextView>(
+            R.id.counter_value
+        )
+        val plusButton = mainView.findViewById<Button>(
+            R.id.plus
+        )
+        val minusButton = mainView.findViewById<Button>(
+            R.id.minus
+        )
         plusButton.setOnClickListener {
             counter++
             counterValue.text = counter.toString()
