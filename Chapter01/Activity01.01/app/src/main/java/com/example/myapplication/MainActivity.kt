@@ -1,5 +1,6 @@
-package com.example.jetpackcompose.myapplication
+package com.example.myapplication
 
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -25,7 +26,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.jetpackcompose.myapplication.ui.theme.MyApplicationTheme
+import com.example.myapplication.R
+import com.example.myapplication.theme.MyApplicationTheme
 import androidx.compose.ui.graphics.Color as ComposeColor
 
 class MainActivity : ComponentActivity() {
@@ -82,7 +84,7 @@ fun ColorCreatorScreen() {
                     if (isValidHexInput(redChannel) && isValidHexInput(greenChannel) && isValidHexInput(blueChannel)) {
                         val colorString = "#$redChannel$greenChannel$blueChannel"
                         colorToDisplay = try {
-                            ComposeColor(android.graphics.Color.parseColor(colorString))
+                            ComposeColor(Color.parseColor(colorString))
                         } catch (e: IllegalArgumentException) {
                             ComposeColor.White
                         }
