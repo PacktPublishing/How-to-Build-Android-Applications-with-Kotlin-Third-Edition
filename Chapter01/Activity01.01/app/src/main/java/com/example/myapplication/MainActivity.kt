@@ -1,9 +1,6 @@
 package com.example.myapplication
 
-import android.graphics.ColorSpace.Model.RGB
 import android.os.Bundle
-import android.util.Log.e
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -16,7 +13,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,13 +20,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myapplication.R
-import com.example.myapplication.theme.MyApplicationTheme
 import androidx.core.graphics.toColorInt
 
 class MainActivity : ComponentActivity() {
@@ -113,7 +104,7 @@ class MainActivity : ComponentActivity() {
 fun isValidHexInput(input: String): Boolean {
     return input.filter {
         it in '0'..'9' ||
-                it in 'A'..'F' ||
-                it in 'a'..'f'
+        it in 'A'..'F' ||
+        it in 'a'..'f'
     }.length == 2
 }
