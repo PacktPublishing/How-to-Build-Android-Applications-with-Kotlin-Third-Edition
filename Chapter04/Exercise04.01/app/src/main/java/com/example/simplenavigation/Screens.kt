@@ -39,13 +39,16 @@ fun HomeScreen(navController: NavController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text(stringResource(R.string.app_name)) },
+                title = {
+                    Text(stringResource(R.string.app_name))
+                        },
                 modifier = Modifier.statusBarsPadding(),
                 colors =
                     TopAppBarDefaults.centerAlignedTopAppBarColors(
                         containerColor =
                             MaterialTheme.colorScheme.surfaceContainer
-                    ))
+                    )
+            )
         }
     ) { padding ->
         Column(
@@ -58,43 +61,63 @@ fun HomeScreen(navController: NavController) {
             Box(
                 modifier = Modifier
                     .size(150.dp)
-                    .border(4.dp, Color(0xFFFF0000), shape =
-                        RoundedCornerShape(16.dp))
-                    .clickable { navController.navigate(Color("RED",
-                        0xFFFF0000))}
+                    .border(
+                        4.dp, Color(0xFFFF0000), shape =
+                            RoundedCornerShape(16.dp)
+                    )
+                    .clickable {
+                        navController.navigate(
+                            Color(
+                                "RED",
+                                0xFFFF0000
+                            )
+                        )
+                    }
                     .padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text("RED", color = Color(0xFFFF0000),
-                fontSize = 24.sp)
+                Text(
+                    "RED", color = Color(0xFFFF0000),
+                    fontSize = 24.sp
+                )
             }
             Spacer(modifier = Modifier.height(24.dp))
             Box(
                 modifier = Modifier
                     .size(150.dp)
-                    .border(4.dp, Color(0xFF00FF00),
-                        shape = RoundedCornerShape(16.dp))
-                    .clickable { navController.
-                    navigate(Color("GREEN", 0xFF00FF00))}
+                    .border(
+                        4.dp, Color(0xFF00FF00),
+                        shape = RoundedCornerShape(16.dp)
+                    )
+                    .clickable {
+                        navController.navigate(Color("GREEN", 0xFF00FF00))
+                    }
                     .padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text("GREEN", color = Color(0xFF00FF00),
-                fontSize = 24.sp)
+                Text(
+                    "GREEN", color = Color(0xFF00FF00),
+                    fontSize = 24.sp
+                )
             }
             Spacer(modifier = Modifier.height(24.dp))
             Box(
                 modifier = Modifier
                     .size(150.dp)
-                    .border(4.dp, Color(0xFF0000FF),
-                        shape = RoundedCornerShape(16.dp))
-                    .clickable { navController.
-                    navigate(Color("BLUE", 0xFF0000FF))}
+                    .border(
+                        4.dp, Color(0xFF0000FF),
+                        shape = RoundedCornerShape(16.dp)
+                    )
+                    .clickable {
+                        navController.navigate(Color("BLUE", 0xFF0000FF))
+                    }
                     .padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text("BLUE", color = Color(0xFF0000FF),
-                fontSize = 24.sp) // Large font size
+                Text(
+                    "BLUE", color = Color(0xFF0000FF),
+                    fontSize = 24.sp
+                ) // Large font size
             }
         }
     }
@@ -102,22 +125,26 @@ fun HomeScreen(navController: NavController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ColorScreen(navController: NavController, colorName: String,
-                colorValue: Long) {
+fun ColorScreen(
+    navController: NavController, colorName: String,
+    colorValue: Long
+) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                modifier = Modifier.fillMaxWidth(),
                 title = {
-                    Text(colorName)
-                },
+                    Text(stringResource(R.string.app_name))
+                        },
                 navigationIcon = {
                     IconButton(onClick = {
-                        navController.navigateUp() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back")
+                        navController.navigateUp()
+                    }) {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
                     }
-                }
+                },
             )
         }
     ) { padding ->
@@ -128,7 +155,7 @@ fun ColorScreen(navController: NavController, colorName: String,
                 .background(Color(colorValue)),
             contentAlignment = Alignment.Center
         ) {
-            Text(text = "$colorName Screen")
+            Text(text = "$colorName SCREEN", fontSize = 24.sp)
         }
     }
 }
