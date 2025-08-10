@@ -19,7 +19,7 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navigateToDetailScreen: () -> Unit) {
+fun HomeScreen(navController: NavController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -37,7 +37,7 @@ fun HomeScreen(navigateToDetailScreen: () -> Unit) {
                     .padding(paddingValues)
             ) {
                 Button(
-                    onClick = { navigateToDetailScreen() },
+                    onClick = { navController.navigate(Detail) },
                     modifier = Modifier.align(Alignment.Center)
                 ) {
                     Text("Go to Detail Screen")
@@ -49,7 +49,7 @@ fun HomeScreen(navigateToDetailScreen: () -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(navigateToHomeScreen: () -> Unit) {
+fun DetailScreen(navController: NavController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -67,7 +67,7 @@ fun DetailScreen(navigateToHomeScreen: () -> Unit) {
                     .padding(paddingValues)
             ) {
                 Button(
-                    onClick = { navigateToHomeScreen() },
+                    onClick = { navController.navigate(Home) },
                     modifier = Modifier.align(Alignment.Center)
                 ) {
                     Text("Go to Home Screen")
