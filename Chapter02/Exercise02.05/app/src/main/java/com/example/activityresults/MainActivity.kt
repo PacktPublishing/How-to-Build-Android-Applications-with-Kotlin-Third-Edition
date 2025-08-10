@@ -134,8 +134,7 @@ fun MainScreen(
     }
 }
 
-@Composable
-fun TextWithBackgroundColor(
+@Composable fun TextWithBackgroundColor(
     backgroundColor: Color,
     colorMessage: String
 ) {
@@ -159,9 +158,7 @@ fun TextWithBackgroundColor(
     }
 }
 
-@Preview
-@Composable
-fun TextWithBackgroundColorPreview() {
+@Preview @Composable fun TextWithBackgroundColorPreview() {
     TextWithBackgroundColor(
         Color(0xFF00FF00),
         "Chosen color appears here"
