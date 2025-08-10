@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.simplenavigation"
+    namespace = "com.example.navigationdrawer"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.simplenavigation"
+        applicationId = "com.example.navigationdrawer"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

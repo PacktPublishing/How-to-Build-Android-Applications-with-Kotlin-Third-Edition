@@ -1,4 +1,4 @@
-package com.example.simplenavigation.ui.theme
+package com.example.navigationdrawer.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

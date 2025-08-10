@@ -1,4 +1,4 @@
-package com.example.simplenavigation
+package com.example.navigationdrawer
 
 import org.junit.Test
 

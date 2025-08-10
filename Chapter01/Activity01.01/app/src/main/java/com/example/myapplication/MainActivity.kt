@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
                     var redChannel by remember { mutableStateOf("") }
                     var greenChannel by remember { mutableStateOf("") }
                     var blueChannel by remember { mutableStateOf("") }
-                    var colorToDisplay by remember { mutableStateOf(Color.White)
+                    var colorToDisplay by remember {  mutableStateOf(Color.White)
                     }
 
                     OutlinedTextField(
@@ -113,6 +113,7 @@ class MainActivity : ComponentActivity() {
 fun isValidHexInput(input: String): Boolean {
     return input.filter {
         it in '0'..'9' ||
-        it in 'A'..'F' ||
-        it in 'a'..'f' }.length == 2
+                it in 'A'..'F' ||
+                it in 'a'..'f'
+    }.length == 2
 }
