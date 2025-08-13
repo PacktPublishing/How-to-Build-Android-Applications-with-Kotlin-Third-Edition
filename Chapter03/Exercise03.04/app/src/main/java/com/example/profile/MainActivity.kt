@@ -38,11 +38,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.profile.ui.theme.ProfileTheme
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             ProfileTheme {
                 Scaffold(
@@ -55,11 +55,13 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
     }
 }
 
+
 @Composable
-fun ProfileCard(modifier: Modifier) {
+fun Profile(modifier: Modifier) {
     Surface(
         modifier = modifier
             .fillMaxWidth()
@@ -68,42 +70,55 @@ fun ProfileCard(modifier: Modifier) {
         shadowElevation = 8.dp,
         color = Color.White
     ) {
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth()
         ) {
-            Box(
-                modifier = Modifier
-                    .size(100.dp)
-            ) {
+
+            Box (modifier = Modifier.size(116.dp)) {
+
                 Image(
-                    painter = painterResource(id = R.drawable.cat), // Replace with your image resource
+                    // Replace with your image resource
+                    painter = painterResource(id = R.drawable.cat),
                     contentDescription = "Profile Picture",
                     contentScale = ContentScale.Inside,
                     modifier = Modifier
+                        .padding(16.dp)
                         .size(100.dp)
                         .clip(RoundedCornerShape(50.dp))
                 )
+
+                Card(
+                    onClick = {/**/},
+                    modifier = Modifier.align(BottomEnd),
+                    border = BorderStroke(
+                        1.dp, SolidColor(Color.Blue))
+                ) {
+                    Text(
+                        text = "Edit",
+                        modifier = Modifier.padding(horizontal = 4.dp),
+                        fontSize = 12.sp)
+
+                }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
-
             Text(
                 text = "Jane Doe",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 16.dp)
             )
-
             Text(
                 text = "Mobile Developer | Tech Enthusiast",
                 fontSize = 16.sp,
                 color = Color.Gray,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(vertical = 16.dp)
             )
-
-            Spacer(modifier = Modifier.height(16.dp))
 
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
@@ -116,13 +131,35 @@ fun ProfileCard(modifier: Modifier) {
                     Text(text = "Message")
                 }
             }
+
+
+
+
+
         }
+
+
+
     }
+
+
 }
 
 @Composable
+<<<<<<< HEAD
 fun Profile(modifier: Modifier) {
     Surface(
+=======
+fun ProfilePreview() {
+    Profile(modifier = Modifier.padding(20.dp))
+}
+
+
+@Composable
+fun Greeting(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+>>>>>>> main
         modifier = modifier
             .fillMaxWidth()
             .padding(16.dp),

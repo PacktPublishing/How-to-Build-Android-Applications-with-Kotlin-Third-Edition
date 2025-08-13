@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:Chapter01/Exercise01.04/app/src/test/java/com/example/myapplication/ExampleUnitTest.kt
 package com.example.myapplication
+========
+package com.example.mysports
+>>>>>>>> main:Chapter04/Activity04.01/app/src/test/java/com/example/mysports/ExampleUnitTest.kt
 
 import org.junit.Test
 

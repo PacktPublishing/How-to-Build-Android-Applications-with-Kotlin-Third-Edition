@@ -114,24 +114,29 @@ class MainActivity : ComponentActivity() {
     ) {
         workManager.getWorkInfoByIdFlow(requestId)
             .collect { info ->
-                if (info.state == WorkInfo.State.SUCCEEDED) {
-                    Toast.makeText(
-                        this, "Agent arrived!", LENGTH_SHORT
-                    ).show()
-                } else if (info.state == WorkInfo.State.CANCELLED) {
-                    Toast.makeText(
-                        this, "Deployment cancelled!", LENGTH_SHORT
-                    ).show()
-                } else if (info.progress != Data.EMPTY) {
-                    val catAgentId = info.progress
-                        .getString(DATA_KEY_CAT_AGENT_ID)
-                    val timeSeconds = info.progress
-                        .getInt(DATA_KEY_SECONDS_LEFT, 0)
-                    Toast.makeText(
-                        this,
-                        "$catAgentId arrives in $timeSeconds seconds",
-                        LENGTH_SHORT
-                    ).show()
+                when {
+                    info == null -> return@collect
+                    info.state == WorkInfo.State.SUCCEEDED -> {
+                        Toast.makeText(
+                            this, "Agent arrived!", LENGTH_SHORT
+                        ).show()
+                    }
+                    info.state == WorkInfo.State.CANCELLED -> {
+                        Toast.makeText(
+                            this, "Deployment cancelled!", LENGTH_SHORT
+                        ).show()
+                    }
+                    info.progress != Data.EMPTY -> {
+                        val catAgentId = info.progress
+                            .getString(DATA_KEY_CAT_AGENT_ID)
+                        val timeSeconds = info.progress
+                            .getInt(DATA_KEY_SECONDS_LEFT, 0)
+                        Toast.makeText(
+                            this,
+                            "$catAgentId arrives in $timeSeconds seconds",
+                            LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
     }

@@ -1,5 +1,9 @@
 package com.example.navigationdrawer.ui.theme
 
+<<<<<<< HEAD
+=======
+import android.app.Activity
+>>>>>>> main
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

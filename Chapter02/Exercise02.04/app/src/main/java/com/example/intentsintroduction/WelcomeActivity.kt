@@ -19,9 +19,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.intentsintroduction.MainActivity.Companion.FULL_NAME_KEY
 import com.example.intentsintroduction.ui.theme.IntentsIntroductionTheme
-import com.example.intentsintroduction.MainActivity.Companion
-.FULL_NAME_KEY
 
 
 class WelcomeActivity : ComponentActivity() {
@@ -36,7 +35,8 @@ class WelcomeActivity : ComponentActivity() {
     }
 }
 
-@Composable private fun WelcomeScreen(intent: Intent) {
+@Composable
+private fun WelcomeScreen(intent: Intent) {
     Scaffold(
         modifier = Modifier.fillMaxSize()
     ) { innerPadding -> Box( contentAlignment =

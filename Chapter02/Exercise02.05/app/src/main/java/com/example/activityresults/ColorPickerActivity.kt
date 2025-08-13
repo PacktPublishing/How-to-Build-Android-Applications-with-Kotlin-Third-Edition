@@ -27,10 +27,6 @@ import androidx.compose.ui.unit.sp
 import com.example.activityresults.MainActivity.Companion.RAINBOW_COLOR
 import com.example.activityresults.MainActivity.Companion.RAINBOW_COLOR_NAME
 import com.example.activityresults.ui.theme.ActivityResultsTheme
-import com.example.activityresults.ui.theme.indigo
-import com.example.activityresults.ui.theme.orange
-import com.example.activityresults.ui.theme.violet
-import com.example.activityresults.ui.theme.yellow
 
 class ColorPickerActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

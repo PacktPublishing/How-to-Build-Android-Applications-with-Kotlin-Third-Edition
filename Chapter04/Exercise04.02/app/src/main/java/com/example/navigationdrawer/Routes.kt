@@ -32,6 +32,7 @@ sealed class Destination(val label: String) {
     data object Bin : Destination("Bin")
 }
 
+<<<<<<< HEAD
 sealed class NavigationDrawer(
     val label: String, val selectedIcon:
     ImageVector, val unselectedIcon: ImageVector, val route:
@@ -65,3 +66,12 @@ sealed class NavigationDrawer(
         Icons.Outlined.Delete, Destination.Bin
     )
 }
+=======
+sealed class NavigationDrawer(val label: String, val selectedIcon: ImageVector, val unselectedIcon: ImageVector, val route: Destination) {
+    data object Home : NavigationDrawer("Home", Icons.Filled.Home, Icons.Outlined.Home, Destination.Home)
+    data object Shopping : NavigationDrawer("Cart", Icons.Filled.ShoppingCart, Icons.Outlined.ShoppingCart, Destination.Shopping)
+    data object Favorites : NavigationDrawer("Favorites", Icons.Filled.Favorite, Icons.Outlined.FavoriteBorder, Destination.Favorites)
+    data object Calendar : NavigationDrawer("Calendar", Icons.Filled.DateRange, Icons.Outlined.DateRange, Destination.Calendar)
+    data object Bin : NavigationDrawer("Bin", Icons.Filled.Delete, Icons.Outlined.Delete, Destination.Bin)
+}
+>>>>>>> main

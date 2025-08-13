@@ -31,7 +31,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
@@ -69,8 +68,7 @@ fun MainApp() {
         NavigationDrawer.Bin
     )
     val drawerState =
-        rememberDrawerState(initialValue =
-            androidx.compose.material3.DrawerValue.Closed)
+        rememberDrawerState(initialValue = androidx.compose.material3.DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
 
     ModalNavigationDrawer(
@@ -85,13 +83,11 @@ fun MainApp() {
                 ) {
                     Image(
                         modifier = Modifier.width(120.dp),
-                        painter = painterResource(id =
-                            R.drawable.ic_launcher_background),
+                        painter = painterResource(id = R.drawable.ic_launcher_background),
                         contentDescription = "Logo",
                     )
                     Image(
-                        painter = painterResource(id =
-                            R.drawable.ic_launcher_foreground),
+                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
                         contentDescription = "Logo",
                     modifier = Modifier.padding(16.dp)
                     )
@@ -101,8 +97,7 @@ fun MainApp() {
                     NavigationDrawerItem(
                         icon = {
                             Icon(
-                                imageVector = if (isSelected) item.
-                                selectedIcon else item.unselectedIcon,
+                                imageVector = if (isSelected) item.selectedIcon else item.unselectedIcon,
                                 contentDescription = item.label
                             )
                         },
@@ -111,11 +106,7 @@ fun MainApp() {
                         onClick = {
                             navController.navigate(item.route) {
                                 launchSingleTop = true
-                                restoreState = true
-                                popUpTo(navController.graph.
-                                startDestinationId) {
-                                    saveState = true
-                                }
+                                popUpTo(navController.graph.startDestinationId)
                             }
                             coroutineScope.launch {
                                 drawerState.close()
@@ -132,16 +123,14 @@ fun MainApp() {
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun NavigationDrawerHost(coroutineScope: CoroutineScope,
-                         drawerState: DrawerState, navController: NavHostController) {
+fun NavigationDrawerHost(coroutineScope: CoroutineScope, drawerState: DrawerState, navController: NavHostController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text(stringResource(R.string.app_name)) },
                 modifier = Modifier.statusBarsPadding(),
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.
-                    surfaceContainer
+                    containerColor = MaterialTheme.colorScheme.surfaceContainer
                 ),
                 navigationIcon = {
                     IconButton(onClick = {
@@ -149,8 +138,7 @@ fun NavigationDrawerHost(coroutineScope: CoroutineScope,
                             drawerState.open()
                         }
                     }) {
-                        Icon(Icons.Default.Menu,
-                            contentDescription = "Menu")
+                        Icon(Icons.Default.Menu, contentDescription = "Menu")
                     }
                 }
             )
@@ -161,32 +149,11 @@ fun NavigationDrawerHost(coroutineScope: CoroutineScope,
             modifier = Modifier.padding(innerPadding),
             startDestination = Destination.Home
         ) {
-            composable<Destination.Home> {
-                ContentScreen(Destination.Home.label) }
-            composable<Destination.Shopping> {
-                ContentScreen(Destination.Shopping.label) }
-            composable<Destination.Favorites> {
-                ContentScreen(Destination.Favorites.label) }
-            composable<Destination.Calendar> {
-                ContentScreen(Destination.Calendar.label) }
-            composable<Destination.Bin> {
-                ContentScreen(Destination.Bin.label) }
+            composable<Destination.Home> { ContentScreen(Destination.Home.label) }
+            composable<Destination.Shopping> { ContentScreen(Destination.Shopping.label) }
+            composable<Destination.Favorites> { ContentScreen(Destination.Favorites.label) }
+            composable<Destination.Calendar> { ContentScreen(Destination.Calendar.label) }
+            composable<Destination.Bin> { ContentScreen(Destination.Bin.label) }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NavigationDrawerTheme {
-        Greeting("Android")
     }
 }

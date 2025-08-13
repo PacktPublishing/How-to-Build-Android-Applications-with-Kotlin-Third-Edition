@@ -10,10 +10,14 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun ContentScreen(name: String) {
+<<<<<<< HEAD
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
+=======
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+>>>>>>> main
         Text(name, fontSize = 28.sp)
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -14,7 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -40,9 +42,10 @@ fun Main(
     modifier: Modifier
 ) {
     var count by remember {
-        mutableStateOf(totalViewModel.result)
+        mutableIntStateOf(totalViewModel.result)
     }
-    MainScreen(modifier = modifier,
+    MainScreen(
+        modifier = modifier,
         count = count,
         onButtonClick = {
             totalViewModel.incrementResult()
@@ -56,7 +59,11 @@ fun MainScreen(
     count: Int = 0,
     onButtonClick: () -> Unit
 ) {
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(text = stringResource(id = R.string.total_count, count))
         Button(onClick = onButtonClick) {
             Text(text = stringResource(id = R.string.click_me))

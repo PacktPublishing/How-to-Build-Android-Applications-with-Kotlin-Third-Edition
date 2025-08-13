@@ -2,4 +2,9 @@
 <resources>
 
     <style name="Theme.Settings" parent="android:Theme.Material.Light.NoActionBar" />
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> main
 </resources>

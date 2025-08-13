@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:Chapter01/Exercise01.04/app/src/androidTest/java/com/example/myapplication/ExampleInstrumentedTest.kt
 package com.example.myapplication
+========
+package com.example.mysports
+>>>>>>>> main:Chapter04/Activity04.01/app/src/androidTest/java/com/example/mysports/ExampleInstrumentedTest.kt
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +23,10 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+<<<<<<<< HEAD:Chapter01/Exercise01.04/app/src/androidTest/java/com/example/myapplication/ExampleInstrumentedTest.kt
         assertEquals("com.example.myapplication", appContext.packageName)
+========
+        assertEquals("com.example.mysports", appContext.packageName)
+>>>>>>>> main:Chapter04/Activity04.01/app/src/androidTest/java/com/example/mysports/ExampleInstrumentedTest.kt
     }
 }

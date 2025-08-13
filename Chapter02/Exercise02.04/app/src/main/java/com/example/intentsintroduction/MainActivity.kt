@@ -32,7 +32,7 @@ import com.example.intentsintroduction.ui.theme.IntentsIntroductionTheme
 
 
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
@@ -49,17 +49,14 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun MainScreen() {
-
     var fullName by remember { mutableStateOf("") }
     val context = LocalContext.current
     val welcomeIntent =
         Intent(context, WelcomeActivity::class.java)
-    Scaffold(
-        modifier = Modifier.fillMaxSize()
-    ) { innerPadding ->
+
+    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Column(
-            verticalArrangement =
-                Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
                 .padding(innerPadding)
                 .padding(16.dp)
@@ -71,12 +68,10 @@ private fun MainScreen() {
                 label = {
                     Text(
                         fontSize = 18.sp,
-                        text = stringResource(
-                            id = R.string.full_name_label
-                        )
+                        text = stringResource(id = R.string.full_name_label)
                     )
                 },
-                textStyle = TextStyle(fontSize = 20.sp),
+                textStyle = TextStyle(fontSize = 20.sp), // Set custom font size here
                 modifier = Modifier
                     .fillMaxWidth()
             )
@@ -87,25 +82,21 @@ private fun MainScreen() {
                         context.startActivity(welcomeIntent)
                     } else {
                         Toast.makeText(
-                            context, context.getString(
-                                R.string
-                                    .full_name_label
-                            ),
+                            context, context.getString(R.string.full_name_label),
                             Toast.LENGTH_LONG
                         ).show()
                     }
                 }),
+
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                Text(
-                    text = stringResource(
-                        R.string.submit_button_text
-                    )
-                )
+                Text(text = stringResource(R.string.submit_button_text))
             }
         }
     }
+
+
 }
 
 @Preview

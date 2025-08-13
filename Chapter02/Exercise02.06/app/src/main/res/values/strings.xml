@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Launch Modes</string>
+
     <string name="title_activity_single_top">SingleTopActivity</string>
     <string name="title_activity_standard">StandardActivity</string>
     <string name="standard_launch_mode">Launch Standard</string>
@@ -50,4 +51,6 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+
+
 </resources>
