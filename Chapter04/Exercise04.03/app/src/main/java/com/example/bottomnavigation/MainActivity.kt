@@ -1,10 +1,7 @@
 package com.example.bottomnavigation
 
-<<<<<<< HEAD
-=======
 import android.net.http.SslCertificate.restoreState
 import android.net.http.SslCertificate.saveState
->>>>>>> main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -25,10 +22,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-<<<<<<< HEAD
-=======
 import androidx.compose.ui.graphics.Color
->>>>>>> main
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
@@ -84,60 +78,31 @@ fun MainApp() {
 
             NavigationBar {
                 bottomNavigationItems.forEach { item ->
-<<<<<<< HEAD
-                    val isSelected =
-                        currentDestination?.hasRoute(item.route::class) == true
-                    NavigationBarItem(
-                        selected = isSelected,
-=======
 
                     val isSelected = currentDestination?.hasRoute(item.route::class) == true
 
                     NavigationBarItem(
                         selected = isSelected ,
->>>>>>> main
                         icon = {
                             BadgedBox(
                                 badge = {
                                     if (item.badgeCount > 0) {
-<<<<<<< HEAD
-                                        Badge { Text(item.badgeCount.toString())
-                                        }
-=======
                                         Badge { Text(item.badgeCount.toString()) }
->>>>>>> main
                                     }
                                 }
                             ) {
                                 Icon(
-<<<<<<< HEAD
-                                    imageVector = if (isSelected)
-                                        item.selectedIcon else item.
-                                    unselectedIcon,
-=======
                                     imageVector = if (isSelected ) item.selectedIcon else item.unselectedIcon,
->>>>>>> main
                                     contentDescription = item.label
                                 )
                             }
                         },
                         label = { Text(item.label) },
                         onClick = {
-<<<<<<< HEAD
-                            if (!isSelected) {
-                                navController.navigate(item.route) {
-                                    launchSingleTop = true
-                                    restoreState = true
-                                    popUpTo(navController.graph.
-                                    startDestinationId) {
-                                        saveState = true
-                                    }
-=======
                             if (!isSelected ) {
                                 navController.navigate(item.route) {
                                     launchSingleTop = true
                                     popUpTo(navController.graph.startDestinationId)
->>>>>>> main
                                 }
                             }
                         }

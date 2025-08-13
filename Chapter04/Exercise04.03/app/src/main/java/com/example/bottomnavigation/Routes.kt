@@ -33,13 +33,33 @@ sealed class Destination(val label: String) {
 }
 
 sealed class BottomNavigation(val label: String, val selectedIcon: ImageVector, val unselectedIcon: ImageVector, val  badgeCount: Int, val route: Destination) {
-    data object Home : BottomNavigation("Home", Icons.Filled.Home, Icons.Outlined.Home, 0, Destination.Home )
-    data object Shopping : BottomNavigation("Cart", Icons.Filled.ShoppingCart, Icons.Outlined.ShoppingCart, 0, Destination.Shopping )
-    data object Favorites : BottomNavigation("Favorites", Icons.Filled.Favorite, Icons.Outlined.FavoriteBorder,0, Destination.Favorites )
-    data object Calendar : BottomNavigation("Calendar", Icons.Filled.DateRange, Icons.Outlined.DateRange,1, Destination.Calendar )
-    data object Bin : BottomNavigation("Bin", Icons.Filled.Delete, Icons.Outlined.Delete, 0, Destination.Bin )
-<<<<<<< HEAD
+    data object Home :
+        BottomNavigation("Home", Icons.Filled.Home, Icons.Outlined.Home, 0, Destination.Home)
+
+    data object Shopping : BottomNavigation(
+        "Cart",
+        Icons.Filled.ShoppingCart,
+        Icons.Outlined.ShoppingCart,
+        0,
+        Destination.Shopping
+    )
+
+    data object Favorites : BottomNavigation(
+        "Favorites",
+        Icons.Filled.Favorite,
+        Icons.Outlined.FavoriteBorder,
+        0,
+        Destination.Favorites
+    )
+
+    data object Calendar : BottomNavigation(
+        "Calendar",
+        Icons.Filled.DateRange,
+        Icons.Outlined.DateRange,
+        1,
+        Destination.Calendar
+    )
+
+    data object Bin :
+        BottomNavigation("Bin", Icons.Filled.Delete, Icons.Outlined.Delete, 0, Destination.Bin)
 }
-=======
-}
->>>>>>> main

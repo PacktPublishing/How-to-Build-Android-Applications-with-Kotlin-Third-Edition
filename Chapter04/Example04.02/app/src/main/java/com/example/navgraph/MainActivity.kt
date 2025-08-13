@@ -20,30 +20,17 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun NavigationApp() {
-<<<<<<< HEAD
-    val navController = rememberNavController()
-    NavHost(
-        navController = navController,
-=======
     val navHostController = rememberNavController()
     NavHost(
         navController = navHostController,
->>>>>>> main
         startDestination = Home,
         builder = (
                 {
                     composable<Home> {
-<<<<<<< HEAD
-                        HomeScreen(navController)
-                    }
-                    composable<Detail> {
-                        DetailScreen(navController)
-=======
                         HomeScreen(navHostController)
                     }
                     composable<Detail> {
                         DetailScreen(navHostController)
->>>>>>> main
                     }
                 })
     )

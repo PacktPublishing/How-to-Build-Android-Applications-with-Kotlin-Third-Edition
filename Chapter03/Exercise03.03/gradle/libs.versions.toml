@@ -1,19 +1,11 @@
 [versions]
-<<<<<<< HEAD
 agp = "8.10.1"
-=======
-agp = "8.9.2"
->>>>>>> main
 kotlin = "2.0.21"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-<<<<<<< HEAD
 lifecycleRuntimeKtx = "2.9.2"
-=======
-lifecycleRuntimeKtx = "2.9.0"
->>>>>>> main
 activityCompose = "1.10.1"
 composeBom = "2024.09.00"
 

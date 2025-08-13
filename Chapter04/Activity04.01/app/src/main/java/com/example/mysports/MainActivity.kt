@@ -48,85 +48,49 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-<<<<<<< HEAD
-=======
 
->>>>>>> main
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("My Sports") },
                 modifier = Modifier.statusBarsPadding(),
-<<<<<<< HEAD
-                colors = TopAppBarDefaults.
-                centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.
-                    surfaceContainer
-=======
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surfaceContainer
->>>>>>> main
                 )
             )
         },
         bottomBar = { BottomNavigationBar(navController) }
     ) { paddingValues ->
-<<<<<<< HEAD
-        NavigationHost(navController, modifier =
-            Modifier.padding(paddingValues))
-=======
         NavigationHost(navController, modifier = Modifier.padding(paddingValues))
->>>>>>> main
     }
 }
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
-<<<<<<< HEAD
-    val navBackStackEntry =
-        navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry.value?.destination
-=======
 
     val navBackStackEntry = navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry.value?.destination
 
->>>>>>> main
     val items = listOf(
         BottomNavigation.Home,
         BottomNavigation.Calendar,
         BottomNavigation.Profile,
         BottomNavigation.MySports,
     )
-<<<<<<< HEAD
-=======
 
->>>>>>> main
     NavigationBar(
         containerColor = Color.White,
         contentColor = Color.Black
     ) {
         items.forEach { item ->
-<<<<<<< HEAD
-            val isSelected =
-                currentDestination?.hasRoute(item.route::class) ==
-                        true
-=======
 
             val isSelected = currentDestination?.hasRoute(item.route::class) == true
 
->>>>>>> main
             NavigationBarItem(
                 selected = isSelected,
                 icon = {
                     Icon(
-<<<<<<< HEAD
-                        imageVector = if (isSelected)
-                            item.selectedIcon else
-                            item.unselectedIcon,
-=======
                         imageVector = if (isSelected) item.selectedIcon else item.unselectedIcon,
->>>>>>> main
                         contentDescription = item.label
                     )
                 },
@@ -135,12 +99,7 @@ fun BottomNavigationBar(navController: NavHostController) {
                     navController.navigate(item.route) {
                         launchSingleTop = true
                         restoreState = true
-<<<<<<< HEAD
-                        popUpTo(navController.graph.
-                        startDestinationId) {
-=======
                         popUpTo(navController.graph.startDestinationId) {
->>>>>>> main
                             saveState = true
                         }
                     }

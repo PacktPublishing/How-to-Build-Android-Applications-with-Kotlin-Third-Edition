@@ -59,12 +59,8 @@ class MainActivity : ComponentActivity() {
                             }
                         ) {
                             Text(
-<<<<<<< HEAD
                                 stringResource(id = R.string.generate_random_number
-=======
-                                stringResource(
-                                    id = R.string.generate_random_number
->>>>>>> main
+
                                 ),
                                 fontSize = 18.sp
                             )

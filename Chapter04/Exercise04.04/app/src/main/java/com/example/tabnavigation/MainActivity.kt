@@ -1,39 +1,23 @@
 package com.example.tabnavigation
 
 import android.os.Bundle
-<<<<<<< HEAD
-=======
-import android.util.MutableInt
->>>>>>> main
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-<<<<<<< HEAD
-=======
-import androidx.compose.foundation.pager.PagerState
->>>>>>> main
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.Scaffold
-<<<<<<< HEAD
-=======
-import androidx.compose.material3.ScrollableTabRow
->>>>>>> main
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-<<<<<<< HEAD
-=======
-import androidx.compose.runtime.remember
->>>>>>> main
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -133,11 +117,3 @@ fun MainApp() {
         }
     }
 }
-<<<<<<< HEAD
-=======
-
-
-
-
-
->>>>>>> main

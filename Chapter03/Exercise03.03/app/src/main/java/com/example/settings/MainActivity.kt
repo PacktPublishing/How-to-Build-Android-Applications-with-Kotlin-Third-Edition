@@ -19,6 +19,8 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Switch
@@ -44,20 +46,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SettingsTheme {
-<<<<<<< HEAD
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
                     SettingsContainer(
                         modifier = Modifier.padding(innerPadding)
                     )
-=======
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    SettingsContainer(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-
->>>>>>> main
                 }
 
             }
@@ -85,14 +79,9 @@ fun SettingsContainer(modifier: Modifier = Modifier) {
 
         SettingsSlider()
 
-<<<<<<< HEAD
         SettingsRadioButtons()
 
         SettingsAlertDialog()
-=======
-        SettingsAlertDialog()
-
->>>>>>> main
     }
 }
 
@@ -107,12 +96,8 @@ fun SettingsHeader() {
     ) {
         Text(
             text = stringResource(
-<<<<<<< HEAD
                 id = R.string.app_name
             ),
-=======
-                id = R.string.app_name),
->>>>>>> main
             style = HeaderTextStyle,
             modifier = Modifier.padding(end = 10.dp)
         )
@@ -138,7 +123,6 @@ fun SettingsImage() {
     ) {
         Text(
             text = stringResource(
-<<<<<<< HEAD
                 id = R.string.settings_profile_image
             ),
             fontSize = 18.sp,
@@ -159,23 +143,6 @@ fun SettingsImage() {
                 id = R.string.settings_profile_image
             ),
         )
-=======
-                id = R.string.settings_profile_image),
-            fontSize = 18.sp,
-        )
-        Image(
-            modifier = Modifier.padding(
-                end = 10.dp).height(34.dp)
-                .clickable {
-                    /* Handle changing the profile image */
-                },
-            painter = painterResource(
-                id = R.drawable.sunflower),
-            contentDescription = stringResource(
-                id = R.string.settings_profile_image),
-
-            )
->>>>>>> main
     }
 }
 
@@ -193,12 +160,8 @@ fun SettingsCheckbox() {
     ) {
         Text(
             text = stringResource(
-<<<<<<< HEAD
                 id = R.string.settings_consent
             ),
-=======
-                id = R.string.settings_consent),
->>>>>>> main
             fontSize = 18.sp,
         )
         Checkbox(
@@ -222,12 +185,8 @@ fun SettingsSwitch() {
     ) {
         Text(
             text = stringResource(
-<<<<<<< HEAD
                 id = R.string.settings_mobile_data
             ),
-=======
-                id = R.string.settings_mobile_data),
->>>>>>> main
             fontSize = 18.sp,
         )
         Switch(
@@ -290,12 +249,8 @@ fun SettingsSlider() {
         Text(
             modifier = Modifier.padding(end = 16.dp),
             text = stringResource(
-<<<<<<< HEAD
                 id = R.string.settings_text_size
             ),
-=======
-                id = R.string.settings_text_size),
->>>>>>> main
             fontSize = 18.sp,
         )
         Slider(
@@ -306,46 +261,27 @@ fun SettingsSlider() {
     }
 }
 
-<<<<<<< HEAD
 @Composable fun SettingsAlertDialog() {
-=======
-@Composable
-fun SettingsAlertDialog() {
->>>>>>> main
     var showDialog by remember { mutableStateOf(false) }
     Button(onClick = { showDialog = true }) {
-        Text(text = stringResource(
-            id = R.string.sign_out))
+        Text(text = stringResource(id = R.string.sign_out))
     }
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
-<<<<<<< HEAD
             title = { Text(text = stringResource(id =
                 R.string.alert_title)) },
             text = { Text(text = stringResource(id =
                 R.string.alert_message)) },
-=======
-            title = { Text(text = stringResource(
-                id = R.string.alert_title)) },
-            text = { Text(text = stringResource(
-                id = R.string.alert_message)) },
->>>>>>> main
             confirmButton = {
                 Button(onClick = { showDialog = false }) {
-                    Text(text = stringResource(
-                        id = R.string.ok))
+                    Text(text = stringResource(id = R.string.ok))
                 }
             },
             dismissButton = {
                 Button(onClick = { showDialog = false }) {
-<<<<<<< HEAD
                     Text(text = stringResource(id =
                         R.string.cancel))
-=======
-                    Text(text = stringResource(
-                        id = R.string.cancel))
->>>>>>> main
                 }
             }
         )

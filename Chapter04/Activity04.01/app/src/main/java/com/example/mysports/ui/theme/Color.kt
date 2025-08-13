@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:Chapter04/Activity04.01/app/src/main/java/com/example/mysports/ui/theme/Color.kt
 package com.example.mysports.ui.theme
-========
-package com.example.myapplication.ui.theme
->>>>>>>> main:Chapter04/Example04.01/app/src/main/java/com/example/myapplication/ui/theme/Color.kt
 
 import androidx.compose.ui.graphics.Color
 

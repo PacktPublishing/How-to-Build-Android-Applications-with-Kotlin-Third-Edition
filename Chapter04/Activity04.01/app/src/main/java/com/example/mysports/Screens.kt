@@ -46,12 +46,7 @@ fun SportsScreen(navController: NavHostController) {
 @Composable
 fun SportButton(navController: NavHostController, name: String) {
     OutlinedButton(
-<<<<<<< HEAD
-        onClick = {
-            navController.navigate(Destination.MySportItem(name))},
-=======
         onClick = { navController.navigate(Destination.MySportItem(name))},
->>>>>>> main
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp),
@@ -63,12 +58,7 @@ fun SportButton(navController: NavHostController, name: String) {
                 contentColor = Color.Black
             )
         },
-<<<<<<< HEAD
-        elevation = ButtonDefaults.buttonElevation(defaultElevation
-        = 2.dp)
-=======
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 2.dp)
->>>>>>> main
     ) {
         Text(
             text = name,
@@ -77,8 +67,4 @@ fun SportButton(navController: NavHostController, name: String) {
             modifier = Modifier.padding(vertical = 8.dp)
         )
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> main
