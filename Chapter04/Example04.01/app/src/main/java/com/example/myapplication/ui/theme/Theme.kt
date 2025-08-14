@@ -1,15 +1,6 @@
-<<<<<<< HEAD
 package com.example.myapplication.ui.theme
 
 import android.app.Activity
-=======
-<<<<<<<< HEAD:Chapter01/Activity01.01/app/src/main/java/com/example/myapplication/theme/Theme.kt
-package com.example.myapplication.theme
-========
-package com.example.myapplication.ui.theme
->>>>>>>> main:Chapter04/Example04.01/app/src/main/java/com/example/myapplication/ui/theme/Theme.kt
-
->>>>>>> main
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
