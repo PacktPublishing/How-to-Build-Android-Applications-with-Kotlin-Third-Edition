@@ -107,7 +107,7 @@ fun ColorScreen(navController: NavController, colorName: String, colorValue: Lon
                 .background(Color(colorValue)),
             contentAlignment = Alignment.Center
         ) {
-            Text(text = "$colorName Screen", color = Color(colorValue))
+            Text(text = "$colorName SCREEN", fontSize = 24.sp)
         }
     }
 }

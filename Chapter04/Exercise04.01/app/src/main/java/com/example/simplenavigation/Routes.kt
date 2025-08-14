@@ -1,4 +1,3 @@
-// Sealed class to define the app routes without any parameters
 package com.example.simplenavigation
 
 import kotlinx.serialization.Serializable

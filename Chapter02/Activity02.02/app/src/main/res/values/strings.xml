@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Login Form</string>
+    <string name="app_name">Register For Activity Result</string>
     <string name="title_activity_login">LoginActivity</string>
 </resources>

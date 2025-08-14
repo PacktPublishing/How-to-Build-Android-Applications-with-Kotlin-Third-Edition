@@ -1,6 +1,5 @@
 package com.example.intentsintroduction
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -33,11 +32,13 @@ import com.example.intentsintroduction.ui.theme.IntentsIntroductionTheme
 
 
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
+     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MainScreen()
+            IntentsIntroductionTheme {
+                MainScreen()
+            }
         }
     }
 
@@ -46,21 +47,16 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
 @Composable
 private fun MainScreen() {
-
     var fullName by remember { mutableStateOf("") }
     val context = LocalContext.current
-
     val welcomeIntent =
         Intent(context, WelcomeActivity::class.java)
-    Scaffold(
-        modifier = Modifier.fillMaxSize()
-    ) { innerPadding ->
+
+    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Column(
-            verticalArrangement =
-                Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
                 .padding(innerPadding)
                 .padding(16.dp)
@@ -72,12 +68,10 @@ private fun MainScreen() {
                 label = {
                     Text(
                         fontSize = 18.sp,
-                        text = stringResource(
-                            id = R.string.full_name_label
-                        )
+                        text = stringResource(id = R.string.full_name_label)
                     )
                 },
-                textStyle = TextStyle(fontSize = 20.sp),
+                textStyle = TextStyle(fontSize = 20.sp), // Set custom font size here
                 modifier = Modifier
                     .fillMaxWidth()
             )
@@ -97,14 +91,11 @@ private fun MainScreen() {
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                Text(
-                    text = stringResource(
-                        R.string.submit_button_text
-                    )
-                )
+                Text(text = stringResource(R.string.submit_button_text))
             }
         }
     }
+
 
 }
 
@@ -114,18 +105,3 @@ private fun MainScreenPreview() {
     MainScreen()
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    IntentsIntroductionTheme {
-        Greeting("Android")
-    }
-}

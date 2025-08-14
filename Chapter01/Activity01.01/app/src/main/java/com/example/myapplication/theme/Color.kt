@@ -1,4 +1,4 @@
-package com.example.loginform.ui.theme
+package com.example.myapplication.theme
 
 import androidx.compose.ui.graphics.Color
 

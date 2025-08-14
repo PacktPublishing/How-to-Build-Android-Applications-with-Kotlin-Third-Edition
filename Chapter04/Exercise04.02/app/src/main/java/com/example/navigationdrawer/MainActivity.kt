@@ -1,7 +1,5 @@
 package com.example.navigationdrawer
 
-import android.net.http.SslCertificate.restoreState
-import android.net.http.SslCertificate.saveState
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -42,7 +40,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.navigationdrawer.ui.theme.NavigationDrawerTheme
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -63,7 +60,6 @@ fun MainApp() {
     val navController: NavHostController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-
     val navigationDrawerItems = listOf(
         NavigationDrawer.Home,
         NavigationDrawer.Shopping,
@@ -89,17 +85,15 @@ fun MainApp() {
                         modifier = Modifier.width(120.dp),
                         painter = painterResource(id = R.drawable.ic_launcher_background),
                         contentDescription = "Logo",
-                        )
+                    )
                     Image(
                         painter = painterResource(id = R.drawable.ic_launcher_foreground),
                         contentDescription = "Logo",
-                        modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(16.dp)
                     )
                 }
-
                 navigationDrawerItems.forEach { item ->
                     val isSelected = currentDestination?.hasRoute(item.route::class) == true
-
                     NavigationDrawerItem(
                         icon = {
                             Icon(
@@ -123,7 +117,6 @@ fun MainApp() {
             }
         }
     ) {
-
         NavigationDrawerHost(coroutineScope, drawerState, navController)
     }
 }

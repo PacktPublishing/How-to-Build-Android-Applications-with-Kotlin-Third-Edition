@@ -45,6 +45,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             SaveAndRestoreTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+
                     Column(
                         verticalArrangement = Arrangement.spacedBy(10.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -58,8 +59,8 @@ class MainActivity : ComponentActivity() {
                             }
                         ) {
                             Text(
-                                stringResource(
-                                    id = R.string.generate_random_number
+                                stringResource(id = R.string.generate_random_number
+
                                 ),
                                 fontSize = 18.sp
                             )

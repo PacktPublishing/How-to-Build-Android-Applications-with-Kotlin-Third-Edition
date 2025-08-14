@@ -38,11 +38,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.profile.ui.theme.ProfileTheme
 
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
         setContent {
             ProfileTheme {
                 Scaffold(
@@ -55,10 +55,70 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-
     }
 }
 
+@Composable
+fun ProfileCard(modifier: Modifier) {
+    Surface(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        shape = RoundedCornerShape(16.dp),
+        shadowElevation = 8.dp,
+        color = Color.White
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(100.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.cat), // Replace with your image resource
+                    contentDescription = "Profile Picture",
+                    contentScale = ContentScale.Inside,
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(RoundedCornerShape(50.dp))
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = "Jane Doe",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
+
+            Text(
+                text = "Mobile Developer | Tech Enthusiast",
+                fontSize = 16.sp,
+                color = Color.Gray,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(8.dp)
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Button(onClick = { /* TODO: Add follow action */ }) {
+                    Text(text = "Follow")
+                }
+                Button(onClick = { /* TODO: Add message action */ }) {
+                    Text(text = "Message")
+                }
+            }
+        }
+    }
+}
 
 @Composable
 fun Profile(modifier: Modifier) {
@@ -77,8 +137,7 @@ fun Profile(modifier: Modifier) {
                 .padding(16.dp)
                 .fillMaxWidth()
         ) {
-
-            Box (modifier = Modifier.size(116.dp)) {
+            Box(modifier = Modifier.size(116.dp)) {
 
                 Image(
                     // Replace with your image resource
@@ -92,19 +151,19 @@ fun Profile(modifier: Modifier) {
                 )
 
                 Card(
-                    onClick = {/**/},
+                    onClick = {/**/ },
                     modifier = Modifier.align(BottomEnd),
                     border = BorderStroke(
-                        1.dp, SolidColor(Color.Blue))
+                        1.dp, SolidColor(Color.Blue)
+                    )
                 ) {
                     Text(
                         text = "Edit",
                         modifier = Modifier.padding(horizontal = 4.dp),
-                        fontSize = 12.sp)
-
+                        fontSize = 12.sp
+                    )
                 }
             }
-
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "Jane Doe",
@@ -132,17 +191,8 @@ fun Profile(modifier: Modifier) {
                 }
             }
 
-
-
-
-
         }
-
-
-
     }
-
-
 }
 
 @Preview(showBackground = true)
@@ -151,19 +201,3 @@ fun ProfilePreview() {
     Profile(modifier = Modifier.padding(20.dp))
 }
 
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ProfileTheme {
-        Greeting("Android")
-    }
-}

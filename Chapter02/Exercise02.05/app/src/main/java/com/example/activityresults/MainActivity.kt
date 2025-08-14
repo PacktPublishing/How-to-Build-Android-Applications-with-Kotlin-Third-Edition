@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.activityresults.ui.theme.ActivityResultsTheme
 
+
 class MainActivity : ComponentActivity() {
 
     private var rainbowColor by
@@ -46,7 +47,6 @@ class MainActivity : ComponentActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { activityResult ->
             val data = activityResult.data
-
             rainbowColor = Color(
                 data?.getLongExtra(
                     RAINBOW_COLOR,
@@ -72,8 +72,7 @@ class MainActivity : ComponentActivity() {
                     colorMessage,
                     context,
                     startForResult
-                )
-            }
+                )}
         }
     }
 
@@ -82,37 +81,8 @@ class MainActivity : ComponentActivity() {
         const val RAINBOW_COLOR = "RAINBOW_COLOR"
         const val TRANSPARENT = 0x00FFFFFFL
     }
-
-
 }
 
-@Composable
-fun TextWithBackgroundColor(backgroundColor: Color, colorMessage: String) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .padding(horizontal = 20.dp)
-            .height(50.dp)
-            .background(backgroundColor)
-            .fillMaxWidth()
-    ) {
-        Text(
-            text = colorMessage,
-            fontSize = 22.sp,
-            color = Color.White,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .background(backgroundColor)
-                .fillMaxWidth()
-        )
-    }
-}
-
-@Preview
-@Composable
-fun TextWithBackgroundColorPreview() {
-    TextWithBackgroundColor(Color(0xFF00FF00), "Chosen color appears here")
-}
 
 @Composable
 fun MainScreen(
@@ -163,5 +133,37 @@ fun MainScreen(
         }
     }
 }
+
+@Composable fun TextWithBackgroundColor(
+    backgroundColor: Color,
+    colorMessage: String
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
+            .height(50.dp)
+            .background(backgroundColor)
+            .fillMaxWidth()
+    ) {
+        Text(
+            text = colorMessage,
+            fontSize = 22.sp,
+            color = Color.White,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .background(backgroundColor)
+                .fillMaxWidth()
+        )
+    }
+}
+
+@Preview @Composable fun TextWithBackgroundColorPreview() {
+    TextWithBackgroundColor(
+        Color(0xFF00FF00),
+        "Chosen color appears here"
+    )
+}
+
 
 

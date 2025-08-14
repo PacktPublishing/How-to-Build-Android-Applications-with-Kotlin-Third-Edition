@@ -14,7 +14,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,7 +21,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
@@ -75,6 +73,7 @@ class MainActivity : ComponentActivity() {
                             label = { Text("Blue Channel") }
                         )
 
+
                         Button(
                             modifier = Modifier.fillMaxWidth(),
                             onClick = {
@@ -94,11 +93,8 @@ class MainActivity : ComponentActivity() {
                             }) {
                             Text("CREATE COLOR")
                         }
-
                         Text(
-                            modifier = Modifier
-                                .background(colorToDisplay)
-                                .padding(24.dp),
+                            modifier = Modifier.background(colorToDisplay).padding(24.dp),
                             text = "Created color display panel"
                         )
                     }

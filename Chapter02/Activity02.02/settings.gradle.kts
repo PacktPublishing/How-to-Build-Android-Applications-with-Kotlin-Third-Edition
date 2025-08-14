@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Login Form"
+rootProject.name = "Register For Activity Result"
 include(":app")
  

@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.loginform"
+    namespace = "com.example.registerforactivityresult"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.loginform"
+        applicationId = "com.example.registerforactivityresult"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

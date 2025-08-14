@@ -91,14 +91,12 @@ fun MainScreen(modifier: Modifier) {
         }
     }
 }
-w
 
 @Preview
 @Composable
 fun MainScreenPreview() {
     MainScreen(modifier = Modifier.padding(20.dp))
 }
-
 
 
 @Composable
