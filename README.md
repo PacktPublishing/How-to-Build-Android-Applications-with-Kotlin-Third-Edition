@@ -1,3 +1,5 @@
+<p align='center'><a href='https://www.packtpub.com/en-us/unlock?step=1'><img src='https://static.packt-cdn.com/assets/images/packt+events/finalGH_design_redeem.png'/></a></p>
+
 <h1 align="center">
 How to Build Android Applications with Kotlin, Third Edition</h1>
 <p align="center">This is the code repository for <a href ="https://www.packtpub.com/en-us/product/how-to-build-android-applications-with-kotlin-third-edition/9781835882764"> How to Build Android Applications with Kotlin, Third Edition</a>, published by Packt.
